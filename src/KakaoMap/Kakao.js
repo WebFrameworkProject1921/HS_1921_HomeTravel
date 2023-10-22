@@ -9,9 +9,9 @@ import styled from 'styled-components';
 const { kakao } = window;
 
 const SearchContainer = styled.div`
+  position: relative;
   width: 240px;
   height: 45px;
-  position: relative;
   border: 0;
   margin-bottom: 20px;
   img {
@@ -272,6 +272,31 @@ function Kakao() {
           overflow: 'hidden',
         }}
       ></div>
+
+      <div id="search_bar">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            searchPlaces();
+          }}
+        >
+          <SearchContainer>
+            <Search
+              type="text"
+              id="keyword"
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+              size="15"
+            />
+            <img
+              src="img/search.png"
+              alt="searchIcon"
+              style={{ width: 20 + 'px', height: 20 + 'px' }}
+            />
+          </SearchContainer>
+        </form>
+      </div>
+
       <div id="menu_wrap" className="bg_white">
         <div className="option">
           {/* <Father>
@@ -279,27 +304,6 @@ function Kakao() {
             <Child>child2</Child>
             <Child>child3</Child>
           </Father> */}
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              searchPlaces();
-            }}
-          >
-            <SearchContainer>
-              <Search
-                type="text"
-                id="keyword"
-                value={keyword}
-                onChange={(e) => setKeyword(e.target.value)}
-                size="15"
-              />
-              <img
-                src="img/search.png"
-                alt="searchIcon"
-                style={{ width: 20 + 'px', height: 20 + 'px' }}
-              />
-            </SearchContainer>
-          </form>
         </div>
         <div style={{ display: 'block' }}>
           {/* 검색 결과 목록 */}
