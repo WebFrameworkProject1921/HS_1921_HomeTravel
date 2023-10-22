@@ -1,16 +1,41 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
 import '../Kakao.css';
-import TestUI from '../TestUI';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
+
+import styled from 'styled-components';
 
 const { kakao } = window;
+
+const SearchContainer = styled.div`
+  width: 240px;
+  height: 45px;
+  position: relative;
+  border: 0;
+  margin-bottom: 20px;
+  img {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+`;
+
+const Search = styled.input`
+  border: 0;
+  padding-left: 10px;
+  background-color: #eaeaea;
+  width: 100%;
+  height: 100%;
+  outline: none;
+`;
 
 function Kakao() {
   const [keyword, setKeyword] = useState(''); // 초기값 설정
   const [map, setMap] = useState(null);
 
   // 마커를 담을 배열입니다
-  var markers = [];
+  let markers = [];
 
   // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성
   let infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
@@ -18,16 +43,13 @@ function Kakao() {
 
   useEffect(() => {
     const container = document.getElementById('map');
-    var options = {
+    let options = {
       //지도를 생성할 때 필요한 기본 옵션
-      center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
-      level: 2, //지도의 레벨(확대, 축소 정도)
+      center: new kakao.maps.LatLng(37.477082, 126.963543), //지도의 중심좌표.
+      level: 5, //지도의 레벨(확대, 축소 정도)
     };
 
     const mapInstance = new kakao.maps.Map(container, options);
-
-    // 장소 검색 객체 생성
-    const psInstance = new kakao.maps.services.Places(mapInstance);
 
     // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
     mapTypeControl = new kakao.maps.MapTypeControl();
@@ -252,28 +274,40 @@ function Kakao() {
       ></div>
       <div id="menu_wrap" className="bg_white">
         <div className="option">
+          {/* <Father>
+            <Child>child1</Child>
+            <Child>child2</Child>
+            <Child>child3</Child>
+          </Father> */}
           <form
             onSubmit={(e) => {
               e.preventDefault();
               searchPlaces();
             }}
           >
-            키워드 :
-            <input
-              type="text"
-              id="keyword"
-              value={keyword}
-              onChange={(e) => setKeyword(e.target.value)}
-              size="15"
-            />
-            <button type="submit">검색하기</button>
+            <SearchContainer>
+              <Search
+                type="text"
+                id="keyword"
+                value={keyword}
+                onChange={(e) => setKeyword(e.target.value)}
+                size="15"
+              />
+              <img
+                src="img/search.png"
+                alt="searchIcon"
+                style={{ width: 20 + 'px', height: 20 + 'px' }}
+              />
+            </SearchContainer>
           </form>
         </div>
-        {/* 검색 결과 목록 */}
-        <ul id="placesList"></ul>
+        <div style={{ display: 'block' }}>
+          {/* 검색 결과 목록 */}
+          <ul id="placesList"></ul>
 
-        {/* 페이지네이션 */}
-        <div id="pagination"></div>
+          {/* 페이지네이션 */}
+          <div id="pagination"></div>
+        </div>
       </div>
     </div>
   );
