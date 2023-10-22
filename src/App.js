@@ -1,24 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
+import Kakao from './KakaoMap/Kakao';
+import TestUI from './TestUI';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div> 
+    <div className="map_wrap" style={{ width: '100%', height: '100%' }}>
+      <Kakao />
+      <div style={{ position: 'absolute', top: 10, left: 10, zIndex: 1 }}>
+        <TestUI />
+      </div>
+    </div>
   );
 }
 
