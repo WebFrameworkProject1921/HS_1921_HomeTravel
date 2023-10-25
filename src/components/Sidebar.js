@@ -50,9 +50,13 @@ const Sidebar = ({ width = 280, children }) => {
             <span>X</span>
           ) : (
             <img
-              src="images/avatar.png"
+              src="img/youtube.png"
               alr="contact open button"
               className={styles.openBtn}
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleMenu();
+              }}
             />
           )}
         </button>
