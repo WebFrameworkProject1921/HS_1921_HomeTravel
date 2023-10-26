@@ -29,6 +29,7 @@ const Sidebar = ({ width = 280, children }) => {
 
   useEffect(() => {
     window.addEventListener('click', handleClose);
+    console.log(width);
     return () => {
       window.removeEventListener('click', handleClose);
     };
@@ -41,7 +42,6 @@ const Sidebar = ({ width = 280, children }) => {
         className={styles.sidebar}
         style={{
           width: `${width}px`,
-          height: '100%',
           transform: `translatex(${-xPosition}px)`,
         }}
       >
@@ -51,7 +51,6 @@ const Sidebar = ({ width = 280, children }) => {
           ) : (
             <img
               src="img/youtube.png"
-              alr="contact open button"
               className={styles.openBtn}
               onClick={(e) => {
                 e.stopPropagation();

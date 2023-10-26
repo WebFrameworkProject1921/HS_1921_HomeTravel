@@ -1,38 +1,51 @@
-import React from 'react';
+import { React } from 'react';
 import { Link } from 'react-router-dom';
-import '../../styles/header.css';
 import styled from 'styled-components';
 
 const NavbarContainer = styled.div`
   position: fixed;
   width: 100%;
-  height: 9%;
+  height: 130px;
+  z-index: 2;
+`;
+
+const StyledNav = styled.nav`
+  width: 100%;
+  height: 100%;
+  background-color: rgb(51, 63, 80);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+`;
+
+const StyledLink = styled(Link)`
+  color: white;
+  padding: 10px;
+  text-decoration: none;
+  font-size: 1.5em;
+  z-index: 2;
+`;
+
+const LogoImage = styled.img`
+  margin-top: 10px;
+  width: 200px;
+  height: 60px;
 `;
 
 function Header() {
   return (
     <NavbarContainer>
-      <nav className="navbar">
-        <img
-          src="img/logo.PNG"
-          alt="Logo"
-          style={{
-            width: 12 + '%',
-            height: 100 + '%',
-          }}
-        />
+      <StyledNav>
         <div>
-          <Link className="navbarMenu" to={'/'}>
-            Main
-          </Link>
-          <Link className="navbarMenu" to={'/SNS'}>
-            SNS
-          </Link>
-          <Link className="navbarMenu" to={'/Calendar'}>
-            Calender
-          </Link>
+          <LogoImage src="img/logo.PNG" alt="Logo" />
         </div>
-      </nav>
+        <div style={{ margin: 1 + 'vh' }}>
+          <StyledLink to={'/'}>Main</StyledLink>
+          <StyledLink to={'/SNS'}>SNS</StyledLink>
+          <StyledLink to={'/Calendar'}>Calendar</StyledLink>
+        </div>
+      </StyledNav>
     </NavbarContainer>
   );
 }

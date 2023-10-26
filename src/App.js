@@ -1,26 +1,23 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
-import Kakao from './components/Kakao';
 import Header from './components/Layout/Header';
 import Main from './components/Main';
 import SNS from './components/SNS';
 import Calendar from './components/Calendar';
-import { KakaoMap } from './components/KakaoMap';
 import Sidebar from './components/Sidebar';
 
 function App() {
   return (
     <div>
-      <KakaoMap />
       <Sidebar width={320} />
       <BrowserRouter>
         <div className="App">
           <Header />
-          {/* <Routes>
+          <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/SNS" element={<SNS />} />
             <Route path="/Calendar" element={<Calendar />} />
-          </Routes> */}
+          </Routes>
         </div>
       </BrowserRouter>
     </div>

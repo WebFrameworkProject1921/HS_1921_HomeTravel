@@ -1,10 +1,10 @@
 import React from 'react';
-import Kakao from './Kakao';
+import KakaoMap from './KakaoMap';
 
 function Main() {
   return (
-    <div className="map_wrap" style={{ width: '100%', height: '100%' }}>
-      <Kakao />
+    <div>
+      <KakaoMap />
     </div>
   );
 }
