@@ -6,6 +6,7 @@ const NavbarContainer = styled.div`
   position: fixed;
   width: 100%;
   height: 130px;
+  top: 0;
   z-index: 2;
 `;
 
