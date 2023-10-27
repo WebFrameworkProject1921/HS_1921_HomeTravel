@@ -14,10 +14,10 @@
 }
 .button {
   position: fixed;
-  left: -50px;
+  left: -60px;
   top: 10px;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   transition: 0.8s ease;
   border: 2px solid #202020;
   border-radius: 40px;
