@@ -1,10 +1,12 @@
-import React from 'react';
 import KakaoMap from './KakaoMap';
 
-function Main() {
+function Main({ keyword, setKeyword = (f) => f }) {
   return (
     <div>
-      <KakaoMap />
+      <KakaoMap
+        keyword={keyword}
+        setKeyword={(newKeyword) => setKeyword(newKeyword)}
+      />
     </div>
   );
 }

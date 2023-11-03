@@ -1,9 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
+import axios from 'axios';
 import styles from '../styles/sidebar.module.css';
+import VideoList from './VideoList';
+import { YOUTUBE_API_KEY } from '../config/youtubeKey';
 
-const Sidebar = ({ width = 280, children }) => {
+const YoutubeBar = ({ width = 280, keyword }) => {
   const [isOpen, setOpen] = useState(false);
   const [xPosition, setX] = useState(-width);
+  const [videos, setVideos] = useState([]);
   const side = useRef();
 
   // button 클릭 시 토글
@@ -29,11 +33,22 @@ const Sidebar = ({ width = 280, children }) => {
 
   useEffect(() => {
     window.addEventListener('click', handleClose);
-    console.log(width);
     return () => {
       window.removeEventListener('click', handleClose);
     };
   });
+
+  useEffect(() => {
+    const fetchVideos = async () => {
+      const response = await axios.get(
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${
+          keyword + '여행'
+        }&order=viewCount&type=video&key=${YOUTUBE_API_KEY}`
+      );
+      setVideos(response.data.items);
+    };
+    if (keyword !== '') fetchVideos();
+  }, [keyword]);
 
   return (
     <div className={styles.container}>
@@ -59,11 +74,11 @@ const Sidebar = ({ width = 280, children }) => {
             />
           )}
         </button>
-        <div className={styles.content}>{children}</div> //사이드바 컴포넌트
-        내부 값이 구현되는 위치
+        {/* <div className={styles.content}>{children}</div> */}
+        <VideoList keyword={keyword} videos={videos} />
       </div>
     </div>
   );
 };
 
-export default Sidebar;
+export default YoutubeBar;

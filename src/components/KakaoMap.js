@@ -66,12 +66,20 @@ const RightBarContainer = styled.div`
   z-index: 2;
 `;
 
-export const KakaoMap = () => {
+export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
   const [markerArray, setMarkerArray] = useState([]);
   const [info, setInfo] = useState();
   const [map, setMap] = useState();
-  const [keyword, setKeyword] = useState('');
+  const [inputValue, setInputValue] = useState('');
+
   const { kakao } = window;
+
+  // 키워드 입력시 엔터를 입력했을 때만 setKeyword 호출
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      setKeyword(inputValue);
+    }
+  };
 
   // 마커를 담을 배열
   let markers = [];
@@ -337,8 +345,9 @@ export const KakaoMap = () => {
             <Search
               type="text"
               id="keyword"
-              value={keyword}
-              onChange={(e) => setKeyword(e.target.value)}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={handleKeyDown}
               size="15"
             />
             <img
