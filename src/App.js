@@ -8,7 +8,7 @@ import Calendar from './components/Calendar';
 import YoutubeBar from './components/YoutubeBar';
 
 function App() {
-  const [keyword, setKeyword] = useState('');
+  const [keyword, setKeyword] = useState('국내');
 
   return (
     <div>

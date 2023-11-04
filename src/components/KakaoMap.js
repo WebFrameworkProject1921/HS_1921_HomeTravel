@@ -52,7 +52,6 @@ const SearchResultArea = styled.div`
   position: relative;
   width: 100%;
   height: 99%;
-
   z-index: 1;
 `;
 

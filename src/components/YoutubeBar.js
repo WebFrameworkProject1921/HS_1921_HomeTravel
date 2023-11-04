@@ -1,14 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import styles from '../styles/sidebar.module.css';
-import VideoList from './VideoList';
+import YoutubeVideoList from './YoutubeVideoList';
 import { YOUTUBE_API_KEY } from '../config/youtubeKey';
+import { GoChevronRight } from 'react-icons/go';
 
 const YoutubeBar = ({ width = 280, keyword }) => {
   const [isOpen, setOpen] = useState(false);
   const [xPosition, setX] = useState(-width);
   const [videos, setVideos] = useState([]);
   const side = useRef();
+  const maxResults = 10;
 
   // button 클릭 시 토글
   const toggleMenu = () => {
@@ -41,7 +43,7 @@ const YoutubeBar = ({ width = 280, keyword }) => {
   useEffect(() => {
     const fetchVideos = async () => {
       const response = await axios.get(
-        `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=${maxResults}&q=${
           keyword + '여행'
         }&order=viewCount&type=video&key=${YOUTUBE_API_KEY}`
       );
@@ -62,7 +64,7 @@ const YoutubeBar = ({ width = 280, keyword }) => {
       >
         <button onClick={() => toggleMenu()} className={styles.button}>
           {isOpen ? (
-            <span>X</span>
+            <GoChevronRight className={styles.openBtn} />
           ) : (
             <img
               src="img/youtube.png"
@@ -74,8 +76,7 @@ const YoutubeBar = ({ width = 280, keyword }) => {
             />
           )}
         </button>
-        {/* <div className={styles.content}>{children}</div> */}
-        <VideoList keyword={keyword} videos={videos} />
+        <YoutubeVideoList videos={videos} toggleMenu={toggleMenu} />
       </div>
     </div>
   );
