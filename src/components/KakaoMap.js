@@ -115,7 +115,6 @@ export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
       let markers = [];
 
       for (var i = 0; i < data.length; i++) {
-        // @ts-ignore
         markers.push({
           position: {
             lat: data[i].y,
@@ -123,7 +122,7 @@ export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
           },
           content: data[i].place_name,
         });
-        // @ts-ignore
+
         bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
       }
       setMarkerArray(markers);
@@ -134,9 +133,6 @@ export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
       // 정상적으로 검색이 완료됐으면
       // 검색 목록과 마커를 표출합니다
       displayPlaces(data);
-
-      // 페이지 번호를 표출합니다
-      displayPagination(pagination);
     } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
       alert('검색 결과가 존재하지 않습니다.');
       return;
@@ -261,37 +257,6 @@ export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
       markers[i].setMap(null);
     }
     markers = [];
-  }
-
-  // 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
-  function displayPagination(pagination) {
-    var paginationEl = document.getElementById('pagination'),
-      fragment = document.createDocumentFragment(),
-      i;
-
-    // 기존에 추가된 페이지번호를 삭제합니다
-    // while (paginationEl.hasChildNodes()) {
-    //   paginationEl.removeChild(paginationEl.lastChild);
-    // }
-
-    for (i = 1; i <= pagination.last; i++) {
-      var el = document.createElement('a');
-      el.href = '#';
-      el.innerHTML = i;
-
-      if (i === pagination.current) {
-        el.className = 'on';
-      } else {
-        el.onclick = (function (i) {
-          return function () {
-            pagination.gotoPage(i);
-          };
-        })(i);
-      }
-
-      fragment.appendChild(el);
-    }
-    paginationEl.appendChild(fragment);
   }
 
   // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
