@@ -3,6 +3,9 @@ import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { useState, useEffect } from 'react';
 import '../styles/kakaoMap.css';
 
+import News from './part_D/News';
+import WeatherUI from './part_D/WeatherUI';
+
 const StyledMapContainer = styled.div`
   position: fixed;
   transform: translate(-50%, -50%);
@@ -27,7 +30,7 @@ const SearchBox = styled.div`
   width: 90%;
   height: 45px;
   left: 2.5%;
-  top: 0.5%;
+  top: 10px;
   margin-bottom: 1%;
   img {
     position: absolute;
@@ -65,6 +68,8 @@ const RightBarContainer = styled.div`
   z-index: 2;
 `;
 
+// 카카오맵 가져와서 표시
+// 좌측 사이드바에서 검색기능
 export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
   const [markers, setMarkers] = useState([]);
   const [info, setInfo] = useState();
@@ -82,14 +87,6 @@ export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
 
   // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성
   let infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
-
-  useEffect(() => {
-    let options = {
-      //지도를 생성할 때 필요한 기본 옵션
-      center: new kakao.maps.LatLng(37.477082, 126.963543), //지도의 중심좌표.
-      level: 5, //지도의 레벨(확대, 축소 정도)
-    };
-  }, []);
 
   function searchPlaces() {
     if (!keyword || !keyword.trim()) {
@@ -307,6 +304,7 @@ export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleKeyDown}
               size="15"
+              maxlength="13"
             />
             <img
               src="img/search.png"
@@ -336,7 +334,10 @@ export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
           </div>
         </SearchResultArea>
       </LeftBarContainer>
-      <RightBarContainer></RightBarContainer>
+      <RightBarContainer>
+        <WeatherUI keyword={keyword} />
+        <News keyword={keyword} />
+      </RightBarContainer>
     </>
   );
 };

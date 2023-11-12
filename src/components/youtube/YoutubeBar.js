@@ -12,7 +12,7 @@ const YoutubeBar = ({ width = 280, keyword }) => {
   const [xPosition, setX] = useState(-width);
   const [videos, setVideos] = useState([]);
   const side = useRef();
-  const maxResults = 2;
+  const maxResults = 0;
 
   // button 클릭 시 토글
   const toggleMenu = () => {
