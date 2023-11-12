@@ -4,44 +4,51 @@ import styled from 'styled-components';
 
 const NavbarContainer = styled.div`
   position: fixed;
-  width: 100%;
-  height: 130px;
   top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
   z-index: 2;
 `;
 
 const StyledNav = styled.nav`
   width: 100%;
-  height: 100%;
-  background-color: rgb(51, 63, 80);
+  height: 130px;
+  background: url(img/headerImage.jpg) no-repeat center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
   z-index: 2;
 `;
 
 const StyledLink = styled(Link)`
   color: white;
-  padding: 10px;
+  padding: 3px;
   text-decoration: none;
-  font-size: 1.5em;
-  z-index: 2;
+  font-size: 1.1em;
+  z-index: 3;
+  margin-left: 10px;
+  line-height: 2em;
 `;
 
-const LogoImage = styled.img`
+const LogoText = styled.h1`
+  color: white;
+  font-size: 2em;
+  margin-left: 10px;
   margin-top: 10px;
-  width: 200px;
-  height: 60px;
 `;
 
 function Header() {
   return (
     <NavbarContainer>
       <StyledNav>
-        <div>
-          <LogoImage src="img/logo.PNG" alt="Logo" />
-        </div>
-        <div style={{ margin: 1 + 'vh' }}>
+        <LogoText>방구석 국내여행</LogoText>
+        <div style={{ display: 'flex', gap: '10px' }}>
           <StyledLink to={'/'}>Main</StyledLink>
           <StyledLink to={'/SNS'}>SNS</StyledLink>
           <StyledLink to={'/Calendar'}>Calendar</StyledLink>

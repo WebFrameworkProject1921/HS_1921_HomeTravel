@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import styles from '../styles/sidebar.module.css';
+import styles from '../../styles/sidebar.module.css';
 import YoutubeVideoList from './YoutubeVideoList';
-import { YOUTUBE_API_KEY } from '../config/youtubeKey';
+import { YOUTUBE_API_KEY } from '../../config/youtubeKey';
 import { GoChevronRight } from 'react-icons/go';
 
 const YoutubeBar = ({ width = 280, keyword }) => {
@@ -44,7 +44,7 @@ const YoutubeBar = ({ width = 280, keyword }) => {
     const fetchVideos = async () => {
       const response = await axios.get(
         `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=${maxResults}&q=${
-          keyword + '여행'
+          keyword + ' 여행 맛집'
         }&order=viewCount&type=video&key=${YOUTUBE_API_KEY}`
       );
       setVideos(response.data.items);

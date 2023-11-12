@@ -66,7 +66,7 @@ const RightBarContainer = styled.div`
 `;
 
 export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
-  const [markerArray, setMarkerArray] = useState([]);
+  const [markers, setMarkers] = useState([]);
   const [info, setInfo] = useState();
   const [map, setMap] = useState();
   const [inputValue, setInputValue] = useState('');
@@ -80,15 +80,10 @@ export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
     }
   };
 
-  // 마커를 담을 배열
-  let markers = [];
-
   // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성
   let infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
-  let mapTypeControl;
 
   useEffect(() => {
-    const container = document.getElementById('map');
     let options = {
       //지도를 생성할 때 필요한 기본 옵션
       center: new kakao.maps.LatLng(37.477082, 126.963543), //지도의 중심좌표.
@@ -107,15 +102,15 @@ export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
   }
 
   // 키워드 검색 완료 시 호출되는 콜백함수 입니다
-  function placesSearchCB(data, status, pagination) {
+  function placesSearchCB(data, status) {
     if (status === kakao.maps.services.Status.OK) {
       // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-      // LatLngBounds 객체에 좌표를 추가합니다
+      // LatLngBounds 객체에 좌표를 추가
       const bounds = new kakao.maps.LatLngBounds();
-      let markers = [];
+      let tempMarkers = [];
 
       for (var i = 0; i < data.length; i++) {
-        markers.push({
+        tempMarkers.push({
           position: {
             lat: data[i].y,
             lng: data[i].x,
@@ -125,7 +120,7 @@ export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
 
         bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
       }
-      setMarkerArray(markers);
+      setMarkers(markers);
 
       // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
       map.setBounds(bounds);
@@ -142,32 +137,32 @@ export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
     }
   }
 
-  // 검색 결과 목록과 마커를 표출하는 함수입니다
+  // 검색 결과 목록과 마커를 표출하는 함수
   function displayPlaces(places) {
     var listEl = document.getElementById('placesList'),
       menuEl = document.getElementById('menu_wrap'),
       fragment = document.createDocumentFragment(),
       bounds = new kakao.maps.LatLngBounds();
 
-    // 검색 결과 목록에 추가된 항목들을 제거합니다
+    // 검색 결과 목록에 추가된 항목들을 제거
     removeAllChildNods(listEl);
 
-    // 지도에 표시되고 있는 마커를 제거합니다
+    // 지도에 표시되고 있는 마커를 제거
     removeMarker();
 
     for (var i = 0; i < places.length; i++) {
       // 마커를 생성하고 지도에 표시합니다
       var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
         marker = addMarker(placePosition, i),
-        itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
+        itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성
 
       // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-      // LatLngBounds 객체에 좌표를 추가합니다
+      // LatLngBounds 객체에 좌표를 추가
       bounds.extend(placePosition);
 
       // 마커와 검색결과 항목에 mouseover 했을때
-      // 해당 장소에 인포윈도우에 장소명을 표시합니다
-      // mouseout 했을 때는 인포윈도우를 닫습니다
+      // 해당 장소에 인포윈도우에 장소명을 표시
+      // mouseout 했을 때는 인포윈도우 닫기
       (function (marker, title) {
         kakao.maps.event.addListener(marker, 'mouseover', function () {
           displayInfowindow(marker, title);
@@ -230,7 +225,7 @@ export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
   }
 
   // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
-  function addMarker(position, idx, title) {
+  function addMarker(position, idx) {
     var imageSrc =
         'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
       imageSize = new kakao.maps.Size(36, 37), // 마커 이미지의 크기
@@ -246,7 +241,6 @@ export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
       });
 
     marker.setMap(map); // 지도 위에 마커를 표출합니다
-    markers.push(marker); // 배열에 생성된 마커를 추가합니다
 
     return marker;
   }
@@ -256,7 +250,7 @@ export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
     for (var i = 0; i < markers.length; i++) {
       markers[i].setMap(null);
     }
-    markers = [];
+    setMarkers([]);
   }
 
   // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다

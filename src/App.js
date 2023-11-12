@@ -5,7 +5,8 @@ import Header from './components/Layout/Header';
 import Main from './components/Main';
 import SNS from './components/SNS';
 import Calendar from './components/Calendar';
-import YoutubeBar from './components/YoutubeBar';
+import YoutubeBar from './components/youtube/YoutubeBar';
+import GPTOpen from './components/GPT/GPTOpen';
 
 function App() {
   const [keyword, setKeyword] = useState('국내');
@@ -13,6 +14,7 @@ function App() {
   return (
     <div>
       <YoutubeBar width={320} keyword={keyword} />
+      <GPTOpen keyword={keyword} setKeyword={setKeyword} />
       <BrowserRouter>
         <div className="App">
           <Header />
