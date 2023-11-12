@@ -32,14 +32,14 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   font-size: 1.1em;
   z-index: 3;
-  margin-left: 10px;
+  margin-left: 31px;
   line-height: 2em;
 `;
 
 const LogoText = styled.h1`
   color: white;
   font-size: 2em;
-  margin-left: 10px;
+  margin-left: 32px;
   margin-top: 10px;
 `;
 

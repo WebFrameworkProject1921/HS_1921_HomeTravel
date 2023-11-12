@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import styled from 'styled-components';
-import InputMask from 'react-input-mask';
 import { GPT_API_KEY } from '../../config/GPTkey';
 
 import TextField from '@mui/material/TextField';
@@ -11,6 +9,8 @@ import Typography from '@mui/material/Typography';
 
 const api_key = GPT_API_KEY;
 
+// GPT 모달창 내부 로직
+// 입력을 받아 GPT에게서 답을 얻어 표시
 function GPTComponent() {
   const [destination, setDestination] = useState(''); // 목적지
   const [days, setDays] = useState(''); // 여행 일 수
@@ -76,6 +76,10 @@ function GPTComponent() {
         setLoading(false);
         setResult(response.data.choices[0].message.content);
         setDestination('');
+        setDays('');
+      })
+      .catch((response) => {
+        console.log(response);
       });
   };
 

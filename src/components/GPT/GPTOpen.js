@@ -44,7 +44,7 @@ const OpenButton = styled.button`
   width: 50px;
   height: 50px;
   background-color: #f00;
-  background-image: url('img/chat-gpt.png');
+  background-image: url('img/chatgpt.png');
   background-size: cover;
   background-position: center;
   cursor: pointer;

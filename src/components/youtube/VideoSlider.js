@@ -4,6 +4,7 @@ import 'swiper/css/pagination';
 import { Pagination, Navigation } from 'swiper/modules';
 import YouTube from 'react-youtube';
 
+// 모달창에서 비디오를 슬라이드 할 수 있게 하는 로직
 const VideoSlider = ({ videos }) => {
   return (
     <Swiper

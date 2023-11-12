@@ -33,6 +33,7 @@ const StyledModal = {
   },
 };
 
+// 유튜브 바에서 영상 하단 버튼 클릭 시 나오는 모달 로직
 const YoutubeModal = ({
   videos,
   selectedVideo,

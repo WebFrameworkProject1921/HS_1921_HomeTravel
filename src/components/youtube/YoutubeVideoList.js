@@ -42,6 +42,7 @@ const VideoListContainer = styled.div`
 
 Modal.setAppElement('#root');
 
+// 사이드바에 표시할 재생 가능한 동영상 표시
 const YoutubeVideoList = ({ videos, toggleMenu = (f) => f }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState(null);
