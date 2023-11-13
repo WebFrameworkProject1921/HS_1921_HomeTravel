@@ -36,8 +36,8 @@ const StyledModal = {
 
 const OpenButton = styled.button`
   position: fixed;
-  left: 330px;
-  top: 160px;
+  left: calc(100vw - 380px);
+  top: 230px;
   transform: translateY(-50%);
   border: none;
   border-radius: 50%;

@@ -5,13 +5,14 @@ import '../styles/kakaoMap.css';
 
 import WeatherUI from './part_D/WeatherUI';
 import News from './part_D/News';
-import KakaoMarkers from './KakaoMarkers';
+import MapCategoryMarkers from './part_D/MapCategoryMarkers';
+import BottomSideBar from './part_D/BottomSideBar';
 
 const StyledMapContainer = styled.div`
   position: fixed;
   transform: translate(-50%, -50%);
-  width: 100vw; // 뷰포트 너비의 80%
-  height: 100vh; // 뷰포트 높이의 80%
+  width: 100vw;
+  height: 100vh;
   left: 50%;
   top: 50%;
   z-index: 1;
@@ -277,6 +278,7 @@ export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
 
   return (
     <>
+      {map && <MapCategoryMarkers map={map} markerState={markerState} />}
       <StyledMapContainer onClick={(e) => e.stopPropagation()}>
         <Map
           className="myMap"
@@ -328,7 +330,7 @@ export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
         </form>
 
         <SearchResultArea>
-          <div class="map_wrap">
+          <div className="map_wrap">
             <div id="menu_wrap" className="bg_white">
               <div className="option"></div>
               <div style={{ display: 'block' }}>
@@ -343,10 +345,10 @@ export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
         </SearchResultArea>
       </LeftBarContainer>
       <RightBarContainer>
-        {map && <KakaoMarkers map={map} markerState={markerState} />}
         <WeatherUI keyword={keyword} />
         <News keyword={keyword} />
       </RightBarContainer>
+      <BottomSideBar keyword={keyword} />
     </>
   );
 };

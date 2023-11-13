@@ -9,12 +9,13 @@ import YoutubeBar from './components/youtube/YoutubeBar';
 import GPTOpen from './components/GPT/GPTOpen';
 
 function App() {
-  const [keyword, setKeyword] = useState('서울');
+  const [keyword, setKeyword] = useState('서울'); // 검색 키워드 저장
 
   return (
     <div>
       <YoutubeBar width={320} keyword={keyword} />
       <GPTOpen keyword={keyword} setKeyword={setKeyword} />
+
       <BrowserRouter>
         <div className="App">
           <Header />
