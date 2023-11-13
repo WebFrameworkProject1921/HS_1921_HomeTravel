@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import styles from '../../styles/sidebar.module.css';
+import styles from '../../styles/youtubeBar.module.css';
 import YoutubeVideoList from './YoutubeVideoList';
 import { YOUTUBE_API_KEY } from '../../config/youtubeKey';
 import { GoChevronRight } from 'react-icons/go';
@@ -61,6 +61,21 @@ const YoutubeBar = ({ width = 280, keyword }) => {
 
   return (
     <div className={styles.container}>
+      {isOpen ? (
+        <GoChevronRight
+          className={styles.closeButton}
+          onClick={() => toggleMenu()}
+        />
+      ) : (
+        <button
+          className={styles.openButton}
+          style={{ backgroundImage: "url('img/youtube.png')" }}
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleMenu();
+          }}
+        ></button>
+      )}
       <div
         ref={side}
         className={styles.sidebar}
@@ -69,21 +84,6 @@ const YoutubeBar = ({ width = 280, keyword }) => {
           transform: `translatex(${-xPosition}px)`,
         }}
       >
-        {isOpen ? (
-          <GoChevronRight
-            className={styles.closeButton}
-            onClick={() => toggleMenu()}
-          />
-        ) : (
-          <button
-            className={styles.openButton}
-            style={{ backgroundImage: "url('img/youtube.png')" }}
-            onClick={(e) => {
-              e.stopPropagation();
-              toggleMenu();
-            }}
-          ></button>
-        )}
         <YoutubeVideoList videos={videos} toggleMenu={toggleMenu} />
       </div>
     </div>
