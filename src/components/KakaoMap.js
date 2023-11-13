@@ -3,8 +3,9 @@ import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { useState, useEffect } from 'react';
 import '../styles/kakaoMap.css';
 
-import News from './part_D/News';
 import WeatherUI from './part_D/WeatherUI';
+import News from './part_D/News';
+import KakaoMarkers from './KakaoMarkers';
 
 const StyledMapContainer = styled.div`
   position: fixed;
@@ -30,7 +31,7 @@ const SearchBox = styled.div`
   width: 90%;
   height: 45px;
   left: 2.5%;
-  top: 10px;
+  top: 0.5%;
   margin-bottom: 1%;
   img {
     position: absolute;
@@ -68,13 +69,12 @@ const RightBarContainer = styled.div`
   z-index: 2;
 `;
 
-// 카카오맵 가져와서 표시
-// 좌측 사이드바에서 검색기능
 export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
   const [markers, setMarkers] = useState([]);
   const [info, setInfo] = useState();
   const [map, setMap] = useState();
   const [inputValue, setInputValue] = useState('');
+  const [markerState, setMarkerState] = useState(false); // 마커를 재설정 해야하는지 여부
 
   const { kakao } = window;
 
@@ -87,6 +87,14 @@ export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
 
   // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성
   let infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+
+  useEffect(() => {
+    let options = {
+      //지도를 생성할 때 필요한 기본 옵션
+      center: new kakao.maps.LatLng(37.477082, 126.963543), //지도의 중심좌표.
+      level: 5, //지도의 레벨(확대, 축소 정도)
+    };
+  }, []);
 
   function searchPlaces() {
     if (!keyword || !keyword.trim()) {
@@ -248,6 +256,7 @@ export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
       markers[i].setMap(null);
     }
     setMarkers([]);
+    setMarkerState(true); // 카테고리 마커를 지우기 위함
   }
 
   // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
@@ -304,7 +313,6 @@ export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleKeyDown}
               size="15"
-              maxlength="13"
             />
             <img
               src="img/search.png"
@@ -335,6 +343,7 @@ export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
         </SearchResultArea>
       </LeftBarContainer>
       <RightBarContainer>
+        {map && <KakaoMarkers map={map} markerState={markerState} />}
         <WeatherUI keyword={keyword} />
         <News keyword={keyword} />
       </RightBarContainer>

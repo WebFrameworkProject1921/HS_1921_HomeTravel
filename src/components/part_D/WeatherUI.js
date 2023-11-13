@@ -59,7 +59,7 @@ const WeatherUI = function ({ keyword }) {
     });
   }, [keyword]);
 
-  const fetchWeatherData = (x, y, region) => {
+  const fetchWeatherData = (x, y) => {
     // 기상청에서 제공한 GPS -> GRID 좌표변환 코드 (시작)
     var RE = 6371.00877; // 지구 반경(km)
     var GRID = 5.0; // 격자 간격(km)
