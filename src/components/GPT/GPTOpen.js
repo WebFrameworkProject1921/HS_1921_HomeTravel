@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import styled from 'styled-components';
-import GPTContent from './GPTContent'; // GPTComponent의 경로를 적절하게 수정해주세요.
+import GPTContent from './GPTContent';
 
 const StyledModal = {
   overlay: {
@@ -51,6 +51,7 @@ const OpenButton = styled.button`
   z-index: 99;
 `;
 
+// 버튼을 클릭하면 모달창이 나타남
 function GPTOpen({ keyword, setKeyword = (f) => f }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 

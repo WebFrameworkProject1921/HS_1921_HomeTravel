@@ -9,7 +9,7 @@ import YoutubeBar from './components/youtube/YoutubeBar';
 import GPTOpen from './components/GPT/GPTOpen';
 
 function App() {
-  const [keyword, setKeyword] = useState('국내');
+  const [keyword, setKeyword] = useState('서울');
 
   return (
     <div>

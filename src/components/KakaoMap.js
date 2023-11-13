@@ -3,6 +3,10 @@ import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { useState, useEffect } from 'react';
 import '../styles/kakaoMap.css';
 
+import WeatherUI from './part_D/WeatherUI';
+import News from './part_D/News';
+import KakaoMarkers from './KakaoMarkers';
+
 const StyledMapContainer = styled.div`
   position: fixed;
   transform: translate(-50%, -50%);
@@ -70,6 +74,7 @@ export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
   const [info, setInfo] = useState();
   const [map, setMap] = useState();
   const [inputValue, setInputValue] = useState('');
+  const [markerState, setMarkerState] = useState(false); // 마커를 재설정 해야하는지 여부
 
   const { kakao } = window;
 
@@ -251,6 +256,7 @@ export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
       markers[i].setMap(null);
     }
     setMarkers([]);
+    setMarkerState(true); // 카테고리 마커를 지우기 위함
   }
 
   // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
@@ -336,7 +342,11 @@ export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
           </div>
         </SearchResultArea>
       </LeftBarContainer>
-      <RightBarContainer></RightBarContainer>
+      <RightBarContainer>
+        {map && <KakaoMarkers map={map} markerState={markerState} />}
+        <WeatherUI keyword={keyword} />
+        <News keyword={keyword} />
+      </RightBarContainer>
     </>
   );
 };
