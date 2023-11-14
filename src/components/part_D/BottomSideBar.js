@@ -24,8 +24,8 @@ const BottomSideBar = ({ keyword }) => {
         style={{
           zIndex: '99',
           position: 'absolute',
-          left: '690.5px',
-          top: '140.5px',
+          left: 'calc(331px + 18vw)',
+          top: '141px',
         }}
       >
         <Space>
@@ -35,8 +35,8 @@ const BottomSideBar = ({ keyword }) => {
             onClick={showDrawer}
             style={{
               padding: '1px',
-              width: '60px',
-              height: '57px',
+              width: '3vw',
+              height: '3.1vw',
               borderRadius: '0',
             }}
           >

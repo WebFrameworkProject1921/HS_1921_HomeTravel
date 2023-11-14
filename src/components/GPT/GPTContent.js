@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { GPT_API_KEY } from '../../config/GPTkey';
+import { BeatLoader } from 'react-spinners';
 
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -99,12 +100,16 @@ function GPTComponent() {
             label="어디로 갈까요?"
             variant="outlined"
             value={destination}
+            required="true"
+            type="text"
             onChange={handleDestinationChange}
           />
           <TextField
             label="며칠간 갈까요?"
             variant="outlined"
             value={days}
+            required="true"
+            type="text"
             onChange={handleDaysChange}
           />
           <Button variant="contained" type="submit">
@@ -125,10 +130,13 @@ function GPTComponent() {
           justifyContent="center"
         >
           {loading ? (
-            <img
-              src="https://studentrights.sen.go.kr/images/common/loading.gif"
-              alt="loading"
-            />
+            <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '10vh'}}>
+            <BeatLoader color={"#123abc"} loading={true} size={15} />
+            <Typography variant="h6" color="black" fontSize="16px" style={{marginTop: '5vh'}}>
+              AI가 열심히 답변을 생성하고 있어요!
+            </Typography>
+            </div>
+            
           ) : result ? (
             <pre
               style={{

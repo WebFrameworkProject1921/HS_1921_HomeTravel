@@ -36,7 +36,7 @@ const StyledModal = {
 
 const OpenButton = styled.button`
   position: fixed;
-  left: calc(100vw - 380px);
+  right: 330px;
   top: 230px;
   transform: translateY(-50%);
   border: none;

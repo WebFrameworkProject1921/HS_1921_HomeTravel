@@ -21,7 +21,7 @@ const StyledMapContainer = styled.div`
 const LeftBarContainer = styled.div`
   position: relative;
   width: 320px;
-  height: calc(100vh - 130px);
+  height: calc(100vh - 130.5px);
   top: 130px;
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 1;
@@ -29,10 +29,10 @@ const LeftBarContainer = styled.div`
 
 const SearchBox = styled.div`
   position: absolute;
-  width: 90%;
-  height: 45px;
+  width: 16.7vw;
+  height: 6vh;
   left: 2.5%;
-  top: 0.5%;
+  top: 0.5vh;
   margin-bottom: 1%;
   img {
     position: absolute;

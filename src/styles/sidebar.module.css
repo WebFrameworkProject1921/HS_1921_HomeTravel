@@ -13,9 +13,9 @@
   z-index: 99;
 }
 .closeButton {
-  position: absolute;
-  right: 330px;
-  top: 170px;
+  position: fixed;
+  left: -60px;
+  top: 30px;
   transform: translateY(-50%);
   border: 2px solid #202020;
   border-radius: 50%;
@@ -29,9 +29,9 @@
 }
 
 .openButton {
-  position: absolute;
-  right: 330px;
-  top: 170px;
+  position: fixed;
+  left: -60px;
+  top: 30px;
   transform: translateY(-50%);
   border: none;
   border-radius: 50%;

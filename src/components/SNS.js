@@ -1,7 +1,9 @@
 import React from 'react';
 
-function SNS() {
-  return <div></div>;
+function SNS({map}) {
+  return <div>
+    
+  </div>;
 }
 
 export default SNS;

@@ -14,7 +14,8 @@
 #category li {
   float: left;
   list-style: none;
-  width: 60px;
+  width: 3vw;
+  height: 3vw;
   border-right: 1px solid #acacac;
   padding: 2px 0;
   text-align: center;
