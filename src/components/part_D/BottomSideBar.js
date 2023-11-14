@@ -49,7 +49,7 @@ const BottomSideBar = ({ keyword }) => {
           onClose={onClose}
           open={open}
           key={placement}
-          height={740}
+          height={'60vh'}
         >
           <BottomTypeFilter onSelect={(value) => setSelectedType(value)} />
           <BottomCardList keyword={keyword} selectedType={selectedType} />
