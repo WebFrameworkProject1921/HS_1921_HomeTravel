@@ -1,75 +1,96 @@
-import { useState } from 'react';
-import { useEffect } from 'react';
-import '../Kakao.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from 'react-bootstrap/Button';
-
 import styled from 'styled-components';
+import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import { useState, useEffect } from 'react';
+import '../styles/kakaoMap.css';
 
-const { kakao } = window;
+import WeatherUI from './part_D/WeatherUI';
+import News from './part_D/News';
+import MapCategoryMarkers from './part_D/MapCategoryMarkers';
+import BottomSideBar from './part_D/BottomSideBar';
 
-const SearchContainer = styled.div`
+const StyledMapContainer = styled.div`
+  position: fixed;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 100vh;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+`;
+
+const RightBarContainer = styled.div`
+  position: fixed;
+  right: 0;
+  top: 16vh;
+  width: 320px;
+  height: 84vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 2;
+`;
+
+const LeftBarContainer = styled.div`
   position: relative;
-  width: 240px;
-  height: 45px;
-  border: 0;
-  margin-bottom: 20px;
+  width: 320px;
+  height: 84vh;
+  top: 16vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+`;
+
+const SearchBox = styled.div`
+  position: absolute;
+  width: 95%;
+  height: 50px;
+  left: 2.5%;
+  top: 1.2vh;
+  margin-bottom: 1%;
   img {
     position: absolute;
     right: 10px;
     top: 10px;
   }
+  z-index: 2;
 `;
 
 const Search = styled.input`
-  border: 0;
-  padding-left: 10px;
   background-color: #eaeaea;
   width: 100%;
   height: 100%;
   outline: none;
+  border-radius: 5px;
+  font-size: 1em;
+  z-index: 2;
 `;
 
-function Kakao() {
-  const [keyword, setKeyword] = useState(''); // 초기값 설정
-  const [map, setMap] = useState(null);
+export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
+  const [markers, setMarkers] = useState([]);
+  const [info, setInfo] = useState();
+  const [map, setMap] = useState();
+  const [inputValue, setInputValue] = useState('');
+  const [markerState, setMarkerState] = useState(false); // 마커를 재설정 해야하는지 여부
 
-  // 마커를 담을 배열입니다
-  let markers = [];
+  const { kakao } = window;
+
+  // 키워드 입력시 엔터를 입력했을 때만 setKeyword 호출
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      setKeyword(inputValue);
+    }
+  };
 
   // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성
   let infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
-  let mapTypeControl;
 
   useEffect(() => {
-    const container = document.getElementById('map');
     let options = {
       //지도를 생성할 때 필요한 기본 옵션
       center: new kakao.maps.LatLng(37.477082, 126.963543), //지도의 중심좌표.
       level: 5, //지도의 레벨(확대, 축소 정도)
     };
-
-    const mapInstance = new kakao.maps.Map(container, options);
-
-    // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
-    mapTypeControl = new kakao.maps.MapTypeControl();
-
-    // 상태 업데이트
-    setMap(mapInstance);
-
-    // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
-    // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
-    mapInstance.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
-
-    // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
-    var zoomControl = new kakao.maps.ZoomControl();
-    mapInstance.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
   }, []);
 
-  // 키워드 검색을 요청하는 함수입니다
   function searchPlaces() {
     if (!keyword || !keyword.trim()) {
-      alert('키워드를 입력해주세요!');
       return false;
     }
 
@@ -79,14 +100,32 @@ function Kakao() {
   }
 
   // 키워드 검색 완료 시 호출되는 콜백함수 입니다
-  function placesSearchCB(data, status, pagination) {
+  function placesSearchCB(data, status) {
     if (status === kakao.maps.services.Status.OK) {
+      // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+      // LatLngBounds 객체에 좌표를 추가
+      const bounds = new kakao.maps.LatLngBounds();
+      let tempMarkers = [];
+
+      for (var i = 0; i < data.length; i++) {
+        tempMarkers.push({
+          position: {
+            lat: data[i].y,
+            lng: data[i].x,
+          },
+          content: data[i].place_name,
+        });
+
+        bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+      }
+      setMarkers(markers);
+
+      // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+      map.setBounds(bounds);
+
       // 정상적으로 검색이 완료됐으면
       // 검색 목록과 마커를 표출합니다
       displayPlaces(data);
-
-      // 페이지 번호를 표출합니다
-      displayPagination(pagination);
     } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
       alert('검색 결과가 존재하지 않습니다.');
       return;
@@ -96,33 +135,32 @@ function Kakao() {
     }
   }
 
-  // 검색 결과 목록과 마커를 표출하는 함수입니다
+  // 검색 결과 목록과 마커를 표출하는 함수
   function displayPlaces(places) {
     var listEl = document.getElementById('placesList'),
       menuEl = document.getElementById('menu_wrap'),
       fragment = document.createDocumentFragment(),
-      bounds = new kakao.maps.LatLngBounds(),
-      listStr = '';
+      bounds = new kakao.maps.LatLngBounds();
 
-    // 검색 결과 목록에 추가된 항목들을 제거합니다
+    // 검색 결과 목록에 추가된 항목들을 제거
     removeAllChildNods(listEl);
 
-    // 지도에 표시되고 있는 마커를 제거합니다
+    // 지도에 표시되고 있는 마커를 제거
     removeMarker();
 
     for (var i = 0; i < places.length; i++) {
       // 마커를 생성하고 지도에 표시합니다
       var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
         marker = addMarker(placePosition, i),
-        itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
+        itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성
 
       // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-      // LatLngBounds 객체에 좌표를 추가합니다
+      // LatLngBounds 객체에 좌표를 추가
       bounds.extend(placePosition);
 
       // 마커와 검색결과 항목에 mouseover 했을때
-      // 해당 장소에 인포윈도우에 장소명을 표시합니다
-      // mouseout 했을 때는 인포윈도우를 닫습니다
+      // 해당 장소에 인포윈도우에 장소명을 표시
+      // mouseout 했을 때는 인포윈도우 닫기
       (function (marker, title) {
         kakao.maps.event.addListener(marker, 'mouseover', function () {
           displayInfowindow(marker, title);
@@ -185,7 +223,7 @@ function Kakao() {
   }
 
   // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
-  function addMarker(position, idx, title) {
+  function addMarker(position, idx) {
     var imageSrc =
         'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
       imageSize = new kakao.maps.Size(36, 37), // 마커 이미지의 크기
@@ -201,7 +239,6 @@ function Kakao() {
       });
 
     marker.setMap(map); // 지도 위에 마커를 표출합니다
-    markers.push(marker); // 배열에 생성된 마커를 추가합니다
 
     return marker;
   }
@@ -211,38 +248,8 @@ function Kakao() {
     for (var i = 0; i < markers.length; i++) {
       markers[i].setMap(null);
     }
-    markers = [];
-  }
-
-  // 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
-  function displayPagination(pagination) {
-    var paginationEl = document.getElementById('pagination'),
-      fragment = document.createDocumentFragment(),
-      i;
-
-    // 기존에 추가된 페이지번호를 삭제합니다
-    while (paginationEl.hasChildNodes()) {
-      paginationEl.removeChild(paginationEl.lastChild);
-    }
-
-    for (i = 1; i <= pagination.last; i++) {
-      var el = document.createElement('a');
-      el.href = '#';
-      el.innerHTML = i;
-
-      if (i === pagination.current) {
-        el.className = 'on';
-      } else {
-        el.onclick = (function (i) {
-          return function () {
-            pagination.gotoPage(i);
-          };
-        })(i);
-      }
-
-      fragment.appendChild(el);
-    }
-    paginationEl.appendChild(fragment);
+    setMarkers([]);
+    setMarkerState(true); // 카테고리 마커를 지우기 위함
   }
 
   // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
@@ -262,59 +269,78 @@ function Kakao() {
   }
 
   return (
-    <div className="map_wrap" style={{ width: '100%', height: '100%' }}>
-      <div
-        id="map"
-        style={{
-          width: '100%',
-          height: '100%',
-          position: 'relative',
-          overflow: 'hidden',
-        }}
-      ></div>
-
-      <div id="search_bar">
+    <>
+      {map && <MapCategoryMarkers map={map} markerState={markerState} />}
+      <StyledMapContainer onClick={(e) => e.stopPropagation()}>
+        <Map
+          className="myMap"
+          style={{ width: '100%', height: '100%' }}
+          center={{ lat: 37.477082, lng: 126.963543 }}
+          level={3}
+          onCreate={setMap}
+        >
+          {markers.map((marker) => (
+            <MapMarker
+              key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
+              position={marker.position}
+              onClick={() => setInfo(marker)}
+            >
+              {info && info.content === marker.content && (
+                <div style={{ color: '#000' }}>{marker.content}</div>
+              )}
+            </MapMarker>
+          ))}
+        </Map>
+      </StyledMapContainer>
+      <LeftBarContainer>
         <form
           onSubmit={(e) => {
             e.preventDefault();
             searchPlaces();
           }}
         >
-          <SearchContainer>
+          <SearchBox>
             <Search
               type="text"
               id="keyword"
-              value={keyword}
-              onChange={(e) => setKeyword(e.target.value)}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={handleKeyDown}
               size="15"
             />
             <img
               src="img/search.png"
               alt="searchIcon"
-              style={{ width: 20 + 'px', height: 20 + 'px' }}
+              style={{
+                width: 10 + '%',
+                height: 70 + '%',
+                left: 88 + '%',
+                top: 20 + '%',
+              }}
             />
-          </SearchContainer>
+          </SearchBox>
         </form>
-      </div>
 
-      <div id="menu_wrap" className="bg_white">
-        <div className="option">
-          {/* <Father>
-            <Child>child1</Child>
-            <Child>child2</Child>
-            <Child>child3</Child>
-          </Father> */}
-        </div>
-        <div style={{ display: 'block' }}>
-          {/* 검색 결과 목록 */}
-          <ul id="placesList"></ul>
+        <div className="map_wrap">
+          <div id="menu_wrap" className="bg_white">
+            <div className="option"></div>
+            <div style={{ display: 'block' }}>
+              {/* 검색 결과 목록 */}
+              <ul id="placesList"></ul>
 
-          {/* 페이지네이션 */}
-          <div id="pagination"></div>
+              {/* 페이지네이션 */}
+              <div id="pagination"></div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      </LeftBarContainer>
+      <RightBarContainer>
+        <WeatherUI keyword={keyword} />
+        <News keyword={keyword} />
+      </RightBarContainer>
+      <BottomSideBar keyword={keyword} />
+    </>
   );
-}
+};
 
-export default Kakao;
+export default KakaoMap;

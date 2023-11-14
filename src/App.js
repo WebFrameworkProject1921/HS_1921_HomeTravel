@@ -1,15 +1,39 @@
-import logo from './logo.svg';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useState } from 'react';
 import './App.css';
-import Kakao from './KakaoMap/Kakao';
-import TestUI from './TestUI';
+import Header from './components/Layout/Header';
+import Main from './components/Main';
+import SNS from './components/SNS';
+import Calendar from './components/Calendar';
+import YoutubeBar from './components/youtube/YoutubeBar';
+import GPTOpen from './components/GPT/GPTOpen';
 
 function App() {
+  const [keyword, setKeyword] = useState('서울'); // 검색 키워드 저장
+
   return (
-    <div className="map_wrap" style={{ width: '100%', height: '100%' }}>
-      <Kakao />
-      <div style={{ position: 'absolute', top: 10, left: 10, zIndex: 1 }}>
-        {/* <TestUI /> */}
-      </div>
+    <div>
+      <YoutubeBar keyword={keyword} />
+      <GPTOpen keyword={keyword} setKeyword={setKeyword} />
+
+      <BrowserRouter>
+        <div className="App">
+          <Header />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Main
+                  keyword={keyword}
+                  setKeyword={(newKeyword) => setKeyword(newKeyword)}
+                />
+              }
+            />
+            <Route path="/SNS" element={<SNS />} />
+            <Route path="/Calendar" element={<Calendar />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
     </div>
   );
 }
