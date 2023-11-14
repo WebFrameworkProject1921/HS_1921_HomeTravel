@@ -130,13 +130,25 @@ function GPTComponent() {
           justifyContent="center"
         >
           {loading ? (
-            <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '10vh'}}>
-            <BeatLoader color={"#123abc"} loading={true} size={15} />
-            <Typography variant="h6" color="black" fontSize="16px" style={{marginTop: '5vh'}}>
-              AI가 열심히 답변을 생성하고 있어요!
-            </Typography>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: '5vh',
+              }}
+            >
+              <BeatLoader color={'#123abc'} loading={true} size={15} />
+              <Typography
+                variant="h6"
+                color="black"
+                fontSize="16px"
+                style={{ marginTop: '5vh' }}
+              >
+                AI가 열심히 답변을 생성하고 있어요!
+              </Typography>
             </div>
-            
           ) : result ? (
             <pre
               style={{

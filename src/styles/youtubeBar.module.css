@@ -1,3 +1,4 @@
+/* 유튜브 바 관련 css */
 .container {
   background-color: #e3ecf1;
 }
@@ -5,7 +6,7 @@
   background-color: #e3ecf1;
   border-left: 2px solid #202020;
   position: fixed;
-  top: 130px;
+  height: 84vh;
   bottom: 0;
   right: 0;
   transition: 0.4s ease;
@@ -15,12 +16,14 @@
 .closeButton {
   position: absolute;
   right: 330px;
-  top: 170px;
+  top: 20vh;
   transform: translateY(-50%);
   border: 2px solid #202020;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 2.5vw;
+  height: 5vh;
+  max-width: 55px;
+  max-height: 55px;
   background-color: #fff;
   background-size: cover;
   background-position: center;
@@ -31,12 +34,17 @@
 .openButton {
   position: absolute;
   right: 330px;
-  top: 170px;
+  top: 20vh;
   transform: translateY(-50%);
   border: none;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 2.5vw;
+  height: 5vh;
+  min-width: 50px;
+  min-height: 50px;
+  max-width: 55px;
+  max-height: 55px;
+  overflow: hidden;
   background-color: #fff;
   background-size: cover;
   background-position: center;

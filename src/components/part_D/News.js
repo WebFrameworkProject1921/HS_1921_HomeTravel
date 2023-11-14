@@ -57,7 +57,7 @@ const News = function ({ keyword }) {
     <>
       <div
         className="d-flex flex-column align-items-center m-3 p-3 border rounded shadow bg-white"
-        style={{ maxHeight: '51vh',overflowY: 'auto' }}
+        style={{ maxHeight: '52vh', overflowY: 'auto' }}
       >
         <div className="border-bottom border-primary mb-3">
           <h4 className="text-center">{regionName}의 News</h4>

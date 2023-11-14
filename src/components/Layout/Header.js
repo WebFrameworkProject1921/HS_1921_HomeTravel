@@ -9,7 +9,7 @@ const NavbarContainer = styled.div`
   left: 0;
   width: 100%;
   height: auto;
-  z-index: 2;
+  z-index: 100;
 `;
 
 const StyledNav = styled.nav`
@@ -29,19 +29,19 @@ const StyledNav = styled.nav`
 
 const StyledLink = styled(Link)`
   color: white;
-  padding: 3px;
+  padding: 0vh;
   text-decoration: none;
-  font-size: 1.1em;
+  font-size: 1.2vw;
   z-index: 3;
-  margin-left: 31px;
+  margin-left: 1vw;
   line-height: 2em;
 `;
 
 const LogoText = styled.h1`
   color: white;
-  font-size: 2em;
-  margin-left: 32px;
-  margin-top: 10px;
+  font-size: 1.7vw;
+  margin-left: 1vw;
+  margin-top: 2vh;
 `;
 
 function Header() {

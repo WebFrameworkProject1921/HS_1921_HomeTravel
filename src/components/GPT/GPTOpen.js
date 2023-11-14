@@ -37,12 +37,16 @@ const StyledModal = {
 const OpenButton = styled.button`
   position: fixed;
   right: 330px;
-  top: 230px;
+  top: calc(25vh + 5px);
   transform: translateY(-50%);
   border: none;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 2.5vw;
+  height: 5vh;
+  min-width: 50px;
+  min-height: 50px;
+  max-width: 55px;
+  max-height: 55px;
   background-color: #f00;
   background-image: url('img/chatgpt.png');
   background-size: cover;
