@@ -1,7 +1,8 @@
 import { Select } from 'antd';
 
 //이 컴포넌트는 선택된 값을 App로 보내고, 그 값은 AddSearchBox로 보내져 검색어와 조합됩니다
-const BottomTypeFilter = function ({ onSelect }) {
+
+function BottomTypeFilter({ onSelect }) {
   const onChange = (value) => {
     // 선택된 값을 App으로 전달
     onSelect(value);

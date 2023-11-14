@@ -18,11 +18,22 @@ const StyledMapContainer = styled.div`
   z-index: 1;
 `;
 
+
+const RightBarContainer = styled.div`
+  position: fixed;
+  right: 0;
+  top: 16vh;
+  width: 320px;
+  height: 84vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 2;
+`;
+
 const LeftBarContainer = styled.div`
   position: relative;
   width: 320px;
-  height: calc(100vh - 130.5px);
-  top: 130px;
+  height: 84vh;
+  top: 16vh;
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 1;
 `;
@@ -58,16 +69,6 @@ const SearchResultArea = styled.div`
   width: 100%;
   height: 99%;
   z-index: 1;
-`;
-
-const RightBarContainer = styled.div`
-  position: fixed;
-  right: 0;
-  top: 130px;
-  width: 320px;
-  height: calc(100vh - 130px);
-  background-color: rgba(0, 0, 0, 0.4);
-  z-index: 2;
 `;
 
 export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {

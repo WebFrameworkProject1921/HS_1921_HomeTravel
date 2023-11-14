@@ -2,6 +2,7 @@ import { React } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+// 상단 헤더 컴포넌트
 const NavbarContainer = styled.div`
   position: fixed;
   top: 0;
@@ -12,8 +13,8 @@ const NavbarContainer = styled.div`
 `;
 
 const StyledNav = styled.nav`
-  width: 100%;
-  height: 130px;
+  width: 100vw;
+  height: 16vh; // 헤더 세로길이
   background: url(img/headerImage.jpg) no-repeat center;
   -webkit-background-size: cover;
   -moz-background-size: cover;

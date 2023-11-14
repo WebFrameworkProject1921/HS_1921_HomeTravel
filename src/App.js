@@ -13,7 +13,7 @@ function App() {
 
   return (
     <div>
-      <YoutubeBar width={320} keyword={keyword} />
+      <YoutubeBar keyword={keyword} />
       <GPTOpen keyword={keyword} setKeyword={setKeyword} />
 
       <BrowserRouter>
