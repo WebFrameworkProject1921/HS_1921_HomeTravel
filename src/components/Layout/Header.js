@@ -2,18 +2,19 @@ import { React } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+// 상단 헤더 컴포넌트
 const NavbarContainer = styled.div`
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: auto;
-  z-index: 2;
+  z-index: 100;
 `;
 
 const StyledNav = styled.nav`
-  width: 100%;
-  height: 130px;
+  width: 100vw;
+  height: 16vh; // 헤더 세로길이
   background: url(img/headerImage.jpg) no-repeat center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -28,19 +29,19 @@ const StyledNav = styled.nav`
 
 const StyledLink = styled(Link)`
   color: white;
-  padding: 3px;
+  padding: 0vh;
   text-decoration: none;
-  font-size: 1.1em;
+  font-size: 1.2vw;
   z-index: 3;
-  margin-left: 31px;
+  margin-left: 1vw;
   line-height: 2em;
 `;
 
 const LogoText = styled.h1`
   color: white;
-  font-size: 2em;
-  margin-left: 32px;
-  margin-top: 10px;
+  font-size: 1.7vw;
+  margin-left: 1vw;
+  margin-top: 2vh;
 `;
 
 function Header() {

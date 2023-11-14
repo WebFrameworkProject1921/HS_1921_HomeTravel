@@ -26,13 +26,13 @@ const BottomCardModal = function ({ data, name, address, image }) {
         onClick={() => openModal(data)}
         hoverable
         style={{
-          width: '240px',
+          width: '10vw',
         }}
         cover={
           <img
             alt="삭제된 사진입니다."
             src={image}
-            style={{ height: '200px' }}
+            style={{ height: '16vh' }}
           />
         }
       >
@@ -44,13 +44,15 @@ const BottomCardModal = function ({ data, name, address, image }) {
         open={isModalOpen}
         onOk={closeModal}
         onCancel={closeModal}
+        width={'30vw'}
+        height={'40vh'}
       >
         {selectedCard && (
           <div>
             <h2>{selectedCard.title}</h2>
             <p>{selectedCard.addr1}</p>
             <img
-              style={{ width: '450px' }}
+              style={{ width: '28vw', height: '45vh' }}
               src={selectedCard.firstimage}
               alt="삭제된 사진입니다."
             />

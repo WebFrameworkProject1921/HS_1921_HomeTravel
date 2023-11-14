@@ -24,8 +24,8 @@ const BottomSideBar = ({ keyword }) => {
         style={{
           zIndex: '99',
           position: 'absolute',
-          left: '690.5px',
-          top: '140.5px',
+          left: 'calc(330px + 15.05vw)',
+          top: '16.5vh',
         }}
       >
         <Space>
@@ -35,12 +35,11 @@ const BottomSideBar = ({ keyword }) => {
             onClick={showDrawer}
             style={{
               padding: '1px',
-              width: '60px',
-              height: '57px',
-              borderRadius: '0',
+              width: '2.5vw',
+              height: '6vh',
             }}
           >
-            관광지
+            관광
           </Button>
         </Space>
         <Drawer
@@ -50,7 +49,7 @@ const BottomSideBar = ({ keyword }) => {
           onClose={onClose}
           open={open}
           key={placement}
-          height={740}
+          height={'60vh'}
         >
           <BottomTypeFilter onSelect={(value) => setSelectedType(value)} />
           <BottomCardList keyword={keyword} selectedType={selectedType} />

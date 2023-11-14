@@ -18,21 +18,31 @@ const StyledMapContainer = styled.div`
   z-index: 1;
 `;
 
+const RightBarContainer = styled.div`
+  position: fixed;
+  right: 0;
+  top: 16vh;
+  width: 320px;
+  height: 84vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 2;
+`;
+
 const LeftBarContainer = styled.div`
   position: relative;
   width: 320px;
-  height: calc(100vh - 130px);
-  top: 130px;
+  height: 84vh;
+  top: 16vh;
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 1;
 `;
 
 const SearchBox = styled.div`
   position: absolute;
-  width: 90%;
-  height: 45px;
+  width: 95%;
+  height: 50px;
   left: 2.5%;
-  top: 0.5%;
+  top: 1.2vh;
   margin-bottom: 1%;
   img {
     position: absolute;
@@ -43,30 +53,12 @@ const SearchBox = styled.div`
 `;
 
 const Search = styled.input`
-  padding-left: 10px;
   background-color: #eaeaea;
   width: 100%;
   height: 100%;
   outline: none;
   border-radius: 5px;
   font-size: 1em;
-  z-index: 2;
-`;
-
-const SearchResultArea = styled.div`
-  position: relative;
-  width: 100%;
-  height: 99%;
-  z-index: 1;
-`;
-
-const RightBarContainer = styled.div`
-  position: fixed;
-  right: 0;
-  top: 130px;
-  width: 320px;
-  height: calc(100vh - 130px);
-  background-color: rgba(0, 0, 0, 0.4);
   z-index: 2;
 `;
 
@@ -329,20 +321,18 @@ export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
           </SearchBox>
         </form>
 
-        <SearchResultArea>
-          <div className="map_wrap">
-            <div id="menu_wrap" className="bg_white">
-              <div className="option"></div>
-              <div style={{ display: 'block' }}>
-                {/* 검색 결과 목록 */}
-                <ul id="placesList"></ul>
+        <div className="map_wrap">
+          <div id="menu_wrap" className="bg_white">
+            <div className="option"></div>
+            <div style={{ display: 'block' }}>
+              {/* 검색 결과 목록 */}
+              <ul id="placesList"></ul>
 
-                {/* 페이지네이션 */}
-                <div id="pagination"></div>
-              </div>
+              {/* 페이지네이션 */}
+              <div id="pagination"></div>
             </div>
           </div>
-        </SearchResultArea>
+        </div>
       </LeftBarContainer>
       <RightBarContainer>
         <WeatherUI keyword={keyword} />
