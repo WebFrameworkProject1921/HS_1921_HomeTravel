@@ -11,7 +11,7 @@
   right: 0;
   transition: 0.4s ease;
   color: #202020;
-  z-index: 99;
+  z-index: 20;
 }
 .closeButton {
   position: absolute;
@@ -30,7 +30,7 @@
   background-size: cover;
   background-position: center;
   cursor: pointer;
-  z-index: 99;
+  z-index: 20;
 }
 
 .openButton {
@@ -51,7 +51,7 @@
   background-size: cover;
   background-position: center;
   cursor: pointer;
-  z-index: 99;
+  z-index: 20;
 }
 
 .openBtn {

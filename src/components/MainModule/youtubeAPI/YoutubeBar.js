@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import styles from '../../styles/youtubeBar.module.css';
+import styles from '../../../styles/youtubeBar.module.css';
 import YoutubeVideoList from './YoutubeVideoList';
-import { YOUTUBE_API_KEY } from '../../config/youtubeKey';
+import { YOUTUBE_API_KEY } from '../../../config/youtubeKey';
 import { GoChevronRight } from 'react-icons/go';
 
 // 버튼으로 우측 사이드바 열기/닫기

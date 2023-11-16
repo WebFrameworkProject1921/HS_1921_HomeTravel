@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import styled from 'styled-components';
 import GPTContent from './GPTContent';
 
+// GPT 버튼과 버튼을 클릭 시 모달창이 나타나게 한다.
 const StyledModal = {
   overlay: {
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
@@ -52,7 +53,7 @@ const OpenButton = styled.button`
   background-size: cover;
   background-position: center;
   cursor: pointer;
-  z-index: 99;
+  z-index: 20;
 `;
 
 // 버튼을 클릭하면 모달창이 나타남

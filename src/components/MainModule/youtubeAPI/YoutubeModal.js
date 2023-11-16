@@ -1,6 +1,5 @@
 import Modal from 'react-modal';
-
-import VideoSlider from './VideoSlider';
+import YoutubeVideoSlider from './YoutubeVideoSlider';
 
 const StyledModal = {
   overlay: {
@@ -56,7 +55,7 @@ const YoutubeModal = ({
           height: '100%',
         }}
       >
-        <VideoSlider
+        <YoutubeVideoSlider
           videos={
             selectedVideo
               ? [

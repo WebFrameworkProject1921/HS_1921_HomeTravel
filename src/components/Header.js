@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 // 상단 헤더 컴포넌트
+// 이곳에 로그인 회원가입 버튼 만들어야 한다.
 const NavbarContainer = styled.div`
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: auto;
-  z-index: 100;
+  z-index: 99;
 `;
 
 const StyledNav = styled.nav`
