@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { useState, useEffect } from 'react';
-import '../styles/kakaoMap.css';
+import '../../styles/kakaoMap.css';
 
-import WeatherUI from './part_D/WeatherUI';
-import News from './part_D/News';
-import MapCategoryMarkers from './part_D/MapCategoryMarkers';
-import BottomSideBar from './part_D/BottomSideBar';
+import WeatherUI from '../weatherAPI/WeatherUI';
+import News from '../MainModule/News';
+import KakaoMarkers from './KakaoMarkers';
+import BottomSideBar from '../tourInfoAPI/BottomSideBar';
 
 const StyledMapContainer = styled.div`
   position: fixed;
@@ -62,7 +62,7 @@ const Search = styled.input`
   z-index: 2;
 `;
 
-export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
+export const KakaoMapAPI = ({ keyword, setKeyword = (f) => f }) => {
   const [markers, setMarkers] = useState([]);
   const [info, setInfo] = useState();
   const [map, setMap] = useState();
@@ -270,7 +270,7 @@ export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
 
   return (
     <>
-      {map && <MapCategoryMarkers map={map} markerState={markerState} />}
+      {map && <KakaoMarkers map={map} markerState={markerState} />}
       <StyledMapContainer onClick={(e) => e.stopPropagation()}>
         <Map
           className="myMap"
@@ -343,4 +343,4 @@ export const KakaoMap = ({ keyword, setKeyword = (f) => f }) => {
   );
 };
 
-export default KakaoMap;
+export default KakaoMapAPI;

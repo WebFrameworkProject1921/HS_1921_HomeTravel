@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { GPT_API_KEY } from '../../config/GPTkey';
+import { GPT_API_KEY } from '../../../config/GPTkey';
 import { BeatLoader } from 'react-spinners';
 
 import TextField from '@mui/material/TextField';
