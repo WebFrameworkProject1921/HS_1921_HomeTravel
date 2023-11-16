@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
 import './App.css';
-import Header from './components/Layout/Header';
-import Main from './components/Main';
-import SNS from './components/SNS';
-import Calendar from './components/Calendar';
-import YoutubeBar from './components/youtube/YoutubeBar';
-import GPTOpen from './components/GPT/GPTOpen';
+import Header from './components/Header';
+import Main from './components/MainModule/Main';
+import SNS from './components/SNSModule/SNS';
+import Calendar from './components/CalendarModule/Calendar';
+import YoutubeBar from './components/MainModule/youtubeAPI/YoutubeBar';
+import GPTOpen from './components/MainModule/GPTAPI/GPTOpen';
 
 function App() {
   const [keyword, setKeyword] = useState('서울'); // 검색 키워드 저장

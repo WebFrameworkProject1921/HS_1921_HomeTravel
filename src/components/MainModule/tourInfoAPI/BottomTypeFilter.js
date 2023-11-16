@@ -1,21 +1,13 @@
 import { Select } from 'antd';
 
-//이 컴포넌트는 선택된 값을 App로 보내고, 그 값은 AddSearchBox로 보내져 검색어와 조합됩니다
-
+// 사용자가 선택한 옵션 값을 전달반은 onSelect 의 매개변수로 메시지 전송
+// onSelect는 BottomSideBar.js의 setSelectedType 에게 메시지 전송으로 상태변수 변경한다.
+// 상태변수 변경 시 BottomCardList.js 로 전달된 selectedType 을 감시하던ㄷ useEffect에 의해
+// 표시하는 관광지 정보가 업데이트된다.
 function BottomTypeFilter({ onSelect }) {
-  const onChange = (value) => {
-    // 선택된 값을 App으로 전달
-    onSelect(value);
-  };
-
-  const onSearch = (value) => {
-    //아무 기능도 없지만, 있어야 컴포넌트가 동작함
-  };
-
-  const filterOption = (
-    input,
-    option //antd 라이브러리
-  ) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
+  // antd 라이브러리 활용 - 분류 옵션 표시.
+  const filterOption = (input, option) =>
+    (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
 
   return (
     <>
@@ -23,8 +15,7 @@ function BottomTypeFilter({ onSelect }) {
         showSearch
         placeholder="장소 분류 선택"
         optionFilterProp="children"
-        onChange={onChange}
-        onSearch={onSearch}
+        onChange={(value) => onSelect(value)}
         filterOption={filterOption}
         style={{ width: '200px', left: '90%', marginBottom: '50px' }}
         options={[
@@ -68,6 +59,6 @@ function BottomTypeFilter({ onSelect }) {
       />
     </>
   );
-};
+}
 
 export default BottomTypeFilter;

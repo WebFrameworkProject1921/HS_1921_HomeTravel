@@ -1,9 +1,9 @@
-import KakaoMap from './KakaoMap';
+import KakaoMapAPI from '../kakaoMap/KakaoMapAPI';
 
 function Main({ keyword, setKeyword = (f) => f }) {
   return (
     <div>
-      <KakaoMap
+      <KakaoMapAPI
         keyword={keyword}
         setKeyword={(newKeyword) => setKeyword(newKeyword)}
       />
