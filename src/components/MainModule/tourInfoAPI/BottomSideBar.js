@@ -22,9 +22,9 @@ const BottomSideBar = ({ keyword }) => {
     <>
       <div
         style={{
-          zIndex: '99',
+          zIndex: '15',
           position: 'absolute',
-          left: 'calc(330px + 15.05vw)',
+          left: '631px',
           top: '16.5vh',
         }}
       >
@@ -35,7 +35,7 @@ const BottomSideBar = ({ keyword }) => {
             onClick={showDrawer}
             style={{
               padding: '1px',
-              width: '2.5vw',
+              width: '50px',
               height: '6vh',
             }}
           >

@@ -25,7 +25,7 @@ const RightBarContainer = styled.div`
   width: 320px;
   height: 84vh;
   background-color: rgba(0, 0, 0, 0.4);
-  z-index: 2;
+  z-index: 19;
 `;
 
 const LeftBarContainer = styled.div`
@@ -34,7 +34,7 @@ const LeftBarContainer = styled.div`
   height: 84vh;
   top: 16vh;
   background-color: rgba(0, 0, 0, 0.4);
-  z-index: 1;
+  z-index: 20;
 `;
 
 const SearchBox = styled.div`
@@ -49,7 +49,7 @@ const SearchBox = styled.div`
     right: 10px;
     top: 10px;
   }
-  z-index: 2;
+  z-index: 20;
 `;
 
 const Search = styled.input`
@@ -59,7 +59,7 @@ const Search = styled.input`
   outline: none;
   border-radius: 5px;
   font-size: 1em;
-  z-index: 2;
+  z-index: 20;
 `;
 
 export const KakaoMapAPI = ({ keyword, setKeyword = (f) => f }) => {
