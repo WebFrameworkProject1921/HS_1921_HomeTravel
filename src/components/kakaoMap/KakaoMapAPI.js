@@ -3,10 +3,10 @@ import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { useState, useEffect } from 'react';
 import '../../styles/kakaoMap.css';
 
-import WeatherUI from '../weatherAPI/WeatherUI';
+import WeatherUI from '../MainModule/weatherAPI/WeatherUI';
 import News from '../MainModule/News';
 import KakaoMarkers from './KakaoMarkers';
-import BottomSideBar from '../tourInfoAPI/BottomSideBar';
+import BottomSideBar from '../MainModule/tourInfoAPI/BottomSideBar';
 
 const StyledMapContainer = styled.div`
   position: fixed;

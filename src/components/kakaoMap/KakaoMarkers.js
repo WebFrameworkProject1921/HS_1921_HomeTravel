@@ -101,8 +101,7 @@ export const MapCategoryMarkers = ({ map }) => {
 
     // 마커를 생성하고 지도 위에 마커를 표시하는 함수
     function addMarker(position, order) {
-      var imageSrc =
-          'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
+      var imageSrc = './img/category_icons.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
         imageSize = new kakao.maps.Size(27, 28), // 마커 이미지의 크기
         imgOptions = {
           spriteSize: new kakao.maps.Size(72, 208), // 스프라이트 이미지의 크기
@@ -234,9 +233,9 @@ export const MapCategoryMarkers = ({ map }) => {
             <span className="category_bg mart"></span>
             마트
           </li>
-          <li id="PM9" data-order="2">
+          <li id="SC4" data-order="2">
             <span className="category_bg pharmacy"></span>
-            약국
+            학교
           </li>
           <li id="SW8" data-order="3">
             <span className="category_bg oil"></span>
