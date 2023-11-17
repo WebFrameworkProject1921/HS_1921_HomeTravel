@@ -43,8 +43,7 @@
   height: 28px;
 }
 #category li .category_bg {
-  background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png)
-    no-repeat;
+  background: url('../../public/img/category_icons.png') no-repeat;
 }
 #category li .bank {
   background-position: -10px 0;
