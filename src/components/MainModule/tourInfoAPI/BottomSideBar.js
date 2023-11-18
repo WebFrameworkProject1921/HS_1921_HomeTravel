@@ -37,6 +37,9 @@ const BottomSideBar = ({ keyword }) => {
               padding: '1px',
               width: '50px',
               height: '6vh',
+              minHeight: '55px',
+              maxHeight: '60px',
+              transition: '0',
             }}
           >
             관광
