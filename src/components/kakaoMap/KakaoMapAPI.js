@@ -1,7 +1,9 @@
 import styled from 'styled-components';
+import '../../styles/kakaoMap.css';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { useState, useEffect } from 'react';
-import '../../styles/kakaoMap.css';
+import { Input } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
 
 import WeatherUI from '../MainModule/weatherAPI/WeatherUI';
 import News from '../MainModule/News';
@@ -49,16 +51,6 @@ const SearchBox = styled.div`
     right: 10px;
     top: 10px;
   }
-  z-index: 20;
-`;
-
-const Search = styled.input`
-  background-color: #eaeaea;
-  width: 100%;
-  height: 100%;
-  outline: none;
-  border-radius: 5px;
-  font-size: 1em;
   z-index: 20;
 `;
 
@@ -300,22 +292,19 @@ export const KakaoMapAPI = ({ keyword, setKeyword = (f) => f }) => {
           }}
         >
           <SearchBox>
-            <Search
-              type="text"
+            <Input
               id="keyword"
+              addonAfter={<SearchOutlined />}
               value={inputValue}
+              placeholder="여행지 검색하기"
+              allowClear
+              size="large"
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleKeyDown}
-              size="15"
-            />
-            <img
-              src="img/search.png"
-              alt="searchIcon"
               style={{
-                width: 10 + '%',
-                height: 70 + '%',
-                left: 88 + '%',
-                top: 20 + '%',
+                width: 300,
+                backgroundColor: 'white',
+                borderRadius: '10px',
               }}
             />
           </SearchBox>
