@@ -62,7 +62,7 @@ function Calendar({ setIsLoggedIn, setUser }) {
 
   return (
     <div style={{ zIndex: 50, position: 'relative' }}>
-      <div style={{ height: '120px' }}></div>
+      <div style={{ height: '16vh' }}></div>
 
       <div className="calender-wrapper">
         <BoardSelectList

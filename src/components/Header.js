@@ -52,6 +52,7 @@ const StyledNavContainer = styled.div`
   justify-content: space-between;
   width: 100%;
   height: 16vh;
+  overflow: hidden;
 
   background: url(img/headerImage.jpg) no-repeat center;
   -webkit-background-size: cover;
@@ -89,7 +90,9 @@ function Header({ isLoggedIn, setIsLoggedIn }) {
     <NavbarContainer>
       <StyledNavContainer>
         <NavLeft>
-          <LogoText>방구석 국내여행</LogoText>
+          <Link to={'/'} style={{ textDecorationLine: 'none' }}>
+            <LogoText>방구석 국내여행</LogoText>
+          </Link>
           <div style={{ display: 'flex', gap: '10px' }}>
             <StyledLink to={'/'}>Main</StyledLink>
             <StyledLink to={'/SNS'}>SNS</StyledLink>
