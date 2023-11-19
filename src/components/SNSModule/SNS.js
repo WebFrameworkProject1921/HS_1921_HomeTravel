@@ -68,10 +68,31 @@ function SNS({ isLoggedIn }) {
 
   let modal = null;
 
+  const handleDelete = async (cardId) => {
+    await axios.delete(`http://localhost:8080/posts/${cardId}`)
+        .then(response => {
+            console.log(response.data);
+        })
+        .catch(error => {
+            console.log('Error', error);
+        });
+
+
+
+    await axios.get("http://localhost:8080/posts")
+        .then(res => {
+            setCards(res.data);
+        }).catch(err => {
+            alert('데이더를 가져오는데 오류가 발생했습니다.');
+            console.log(err)
+        });
+
+  }
+
   if (mode === "CREATE") {
     modal = <SNSCardCreateModal open={open} onClose={handleClose} setCards={setCards} />
   } else if (mode === "READ") {
-    modal = <SNSCardModal isLoggedIn={isLoggedIn} open={open} onClose={handleClose} card={card} setMode={setMode} />
+    modal = <SNSCardModal isLoggedIn={isLoggedIn} open={open} onClose={handleClose} card={card} setMode={setMode} handleDelete={handleDelete} />
   } else if (mode === "UPDATE") {
     modal = <SNSCardUpdateModal open={open} onClose={handleClose} card={card} setCards={setCards} />
   }

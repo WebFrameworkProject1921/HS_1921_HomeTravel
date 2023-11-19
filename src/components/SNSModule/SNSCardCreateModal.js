@@ -96,6 +96,7 @@ function SNSCardCreateModal({ open, onClose, setCards }) {
 
         // 모달창 닫기
         onClose(false);
+        resetData();
     }
 
     const resetData = () => {

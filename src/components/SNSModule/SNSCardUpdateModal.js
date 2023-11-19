@@ -140,28 +140,7 @@ function SNSCardUpdateModal({ open, onClose, card, setCards }) {
     }
 
 
-    const handleDelete = async () => {
-        await axios.delete(`http://localhost:8080/posts/${card.id}`)
-            .then(response => {
-                console.log(response.data);
-            })
-            .catch(error => {
-                console.log('Error', error);
-            });
-
-
-
-        await axios.get("http://localhost:8080/posts")
-            .then(res => {
-                setCards(res.data);
-            }).catch(err => {
-                alert('등록을 실패하였습니다.');
-                console.log(err)
-            });
-
-        // 모달창 닫기
-        onClose(false);
-    }
+    
 
 
 
@@ -297,7 +276,6 @@ function SNSCardUpdateModal({ open, onClose, card, setCards }) {
                     onClose();
                 }} >취소</Button>
                 <Button variant="contained" onClick={handleSubmit}>수정</Button>
-                <Button variant="contained" color="error" onClick={handleDelete}>삭제하기</Button>
             </DialogActions>
         </Dialog>
     )
