@@ -13,7 +13,7 @@ import SendIcon from '@mui/icons-material/Send';
 import axios from "axios";
 
 
-function SNSCardModal({ open, onClose, card, setMode, isLoggedIn }) {
+function SNSCardModal({ open, onClose, card, setMode, isLoggedIn, handleDelete }) {
 
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState([]);
@@ -269,7 +269,13 @@ function SNSCardModal({ open, onClose, card, setMode, isLoggedIn }) {
         }} >닫기</Button>
 
         {isLoggedIn && localStorage.getItem("id") == card.authorId && (
-          <Button variant="contained" onClick={() => { setMode("UPDATE") }}>수정하기</Button>
+          <>
+            <Button variant="contained" onClick={() => { setMode("UPDATE") }}>수정하기</Button>
+            <Button variant="contained" color="error" onClick={()=> {
+              handleDelete(card.id);
+              onClose();
+            }}>삭제하기</Button>
+          </>
         )
         }
 
