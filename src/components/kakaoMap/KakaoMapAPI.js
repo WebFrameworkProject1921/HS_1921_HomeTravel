@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 import '../../styles/kakaoMap.css';
-import { Map, MapMarker } from 'react-kakao-maps-sdk';
-import { useState, useEffect } from 'react';
+import { Map, MapMarker, Roadview } from 'react-kakao-maps-sdk';
+import { useState } from 'react';
 import { Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
+import { FaMapMarkerAlt } from 'react-icons/fa';
 
 import WeatherUI from '../MainModule/weatherAPI/WeatherUI';
 import News from '../MainModule/News';
 import KakaoMarkers from './KakaoMarkers';
+import KakaoRoadMap from './KakaoRoadMap';
 import BottomSideBar from '../MainModule/tourInfoAPI/BottomSideBar';
 
 const StyledMapContainer = styled.div`
@@ -61,6 +63,15 @@ export const KakaoMapAPI = ({ keyword, setKeyword = (f) => f }) => {
   const [inputValue, setInputValue] = useState('');
   const [markerState, setMarkerState] = useState(false); // 마커를 재설정 해야하는지 여부
 
+  const [isError, setIsError] = useState(false); // 로드뷰 에러 여부
+  const [roadviewToggle, setRoadviewToggle] = useState(false); // 로드뷰 토글
+  const [roadviewWidth, setRoadviewWidth] = useState(50); // 로드뷰 width 조절
+  const [center, setCenter] = useState({
+    // 맵 클릭시 설정되는 위치
+    lat: 37.477082,
+    lng: 126.963543,
+  });
+
   const { kakao } = window;
 
   // 키워드 입력시 엔터를 입력했을 때만 setKeyword 호출
@@ -72,14 +83,6 @@ export const KakaoMapAPI = ({ keyword, setKeyword = (f) => f }) => {
 
   // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성
   let infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
-
-  useEffect(() => {
-    let options = {
-      //지도를 생성할 때 필요한 기본 옵션
-      center: new kakao.maps.LatLng(37.477082, 126.963543), //지도의 중심좌표.
-      level: 5, //지도의 레벨(확대, 축소 정도)
-    };
-  }, []);
 
   function searchPlaces() {
     if (!keyword || !keyword.trim()) {
@@ -248,7 +251,6 @@ export const KakaoMapAPI = ({ keyword, setKeyword = (f) => f }) => {
   // 인포윈도우에 장소명을 표시합니다
   function displayInfowindow(marker, title) {
     var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
-
     infowindow.setContent(content);
     infowindow.open(map, marker);
   }
@@ -260,17 +262,52 @@ export const KakaoMapAPI = ({ keyword, setKeyword = (f) => f }) => {
     }
   }
 
+  /* 로드뷰 관련 함수 */
+  const handleResizeMouseDown = (e) => {
+    e.preventDefault();
+
+    const initialX = e.clientX; // 마우스를 누른 초기 x 좌표를 저장
+    const initialWidth = roadviewWidth; // 마우스를 누른 초기 로드뷰의 너비를 저장
+
+    const handleMouseMove = (e) => {
+      const vw = window.innerWidth / 100; // 1vw 값
+      // 마우스를 움직인 거리를 vw 단위로 변환하여 로드뷰의 너비를 변경
+      let newWidth = initialWidth + (initialX - e.clientX) / vw;
+      if (newWidth < 1) newWidth = 1; // 로드뷰 최소크기 제한: 1vw
+      else if (newWidth > 99) newWidth = 99; // 로드뷰 최대크기 제한: 99vw
+      setRoadviewWidth(newWidth); // 로드뷰의 너비를 변경
+    };
+
+    const handleMouseUp = () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+  };
+  /* 로드뷰 관련 함수 */
+
   return (
     <>
       {map && <KakaoMarkers map={map} markerState={markerState} />}
       <StyledMapContainer onClick={(e) => e.stopPropagation()}>
+        {/* 카카오맵 */}
         <Map
           className="myMap"
           style={{ width: '100%', height: '100%' }}
           center={{ lat: 37.477082, lng: 126.963543 }}
           level={3}
           onCreate={setMap}
+          onClick={(_, mouseEvent) => {
+            setCenter({
+              lat: mouseEvent.latLng.getLat(),
+              lng: mouseEvent.latLng.getLng(),
+            });
+            setIsError(false);
+          }}
         >
+          {/*검색하면 나오는 마커*/}
           {markers.map((marker) => (
             <MapMarker
               key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
@@ -282,8 +319,18 @@ export const KakaoMapAPI = ({ keyword, setKeyword = (f) => f }) => {
               )}
             </MapMarker>
           ))}
+
+          {/*로드뷰용 마커*/}
+          {roadviewToggle && (
+            <KakaoRoadMap
+              center={center}
+              setCenter={setCenter}
+              setIsError={setIsError}
+            />
+          )}
         </Map>
       </StyledMapContainer>
+
       <LeftBarContainer>
         <form
           onSubmit={(e) => {
@@ -291,6 +338,7 @@ export const KakaoMapAPI = ({ keyword, setKeyword = (f) => f }) => {
             searchPlaces();
           }}
         >
+          {/* 검색 박스 */}
           <SearchBox>
             <Input
               id="keyword"
@@ -310,24 +358,45 @@ export const KakaoMapAPI = ({ keyword, setKeyword = (f) => f }) => {
           </SearchBox>
         </form>
 
+        {/* 검색 결과 목록 */}
         <div className="map_wrap">
           <div id="menu_wrap" className="bg_white">
             <div className="option"></div>
             <div style={{ display: 'block' }}>
-              {/* 검색 결과 목록 */}
               <ul id="placesList"></ul>
-
-              {/* 페이지네이션 */}
-              <div id="pagination"></div>
             </div>
           </div>
         </div>
       </LeftBarContainer>
+      {/* 날씨, 뉴스 API 나오는 공간 */}
       <RightBarContainer>
         <WeatherUI keyword={keyword} />
         <News keyword={keyword} />
       </RightBarContainer>
+      {/* 관광 정보 API */}
       <BottomSideBar keyword={keyword} />
+
+      {/* 로드뷰 토글 버튼 */}
+      <FaMapMarkerAlt
+        id="roadviewToggleButton"
+        onClick={() => setRoadviewToggle(!roadviewToggle)}
+      />
+      {/* 로드뷰 토글이 켜지면 로드뷰가 보인다. */}
+      {roadviewToggle && (
+        <>
+          <div
+            id="roadviewResize"
+            onMouseDown={handleResizeMouseDown}
+            style={{ right: `${roadviewWidth}vw` }}
+          ></div>
+          <Roadview // 로드뷰를 표시할 Container
+            id="roadviewDisplay"
+            position={{ ...center, radius: 50 }}
+            style={{ width: isError ? '0' : `${roadviewWidth}vw` }}
+            onErrorGetNearestPanoId={() => setIsError(true)}
+          ></Roadview>
+        </>
+      )}
     </>
   );
 };
