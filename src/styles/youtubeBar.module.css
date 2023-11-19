@@ -49,6 +49,7 @@
   background-color: #fff;
   background-size: cover;
   background-position: center;
+  background-image: url('../../public/img/youtube.png');
   cursor: pointer;
   z-index: 20;
 }

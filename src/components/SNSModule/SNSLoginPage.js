@@ -85,8 +85,24 @@ function SNSLoginPage({ setIsLoggedIn }) {
   };
 
   return (
-    <>
-    <Container sx={{position: 'relative', marginTop:18, zIndex: 50, backgroundColor: 'white', width: '100vw'}}>
+    <div
+      style={{
+        position: 'absolute',
+        backgroundColor: 'white',
+        width: '100vw',
+        height: '84vh',
+        top: '16vh',
+        zIndex: '50',
+      }}
+    >
+      <Container
+        sx={{
+          position: 'relative',
+          marginTop: 18,
+          backgroundColor: 'white',
+          width: '100vw',
+        }}
+      >
         <CssBaseline />
         <Box
           sx={{
@@ -226,8 +242,8 @@ function SNSLoginPage({ setIsLoggedIn }) {
             </a>
           </Box>
         </Box>
-    </Container>
-    </>
+      </Container>
+    </div>
   );
 }
 
