@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import styled from 'styled-components';
+import btnStyles from '../../../styles/buttonAnimation.module.css';
 import GPTContent from './GPTContent';
 
 // GPT 버튼과 버튼을 클릭 시 모달창이 나타나게 한다.
@@ -38,8 +39,7 @@ const StyledModal = {
 const OpenButton = styled.button`
   position: fixed;
   right: 330px;
-  top: calc(25vh + 15px);
-  transform: translateY(-50%);
+  top: calc(22vh + 15px);
   border: none;
   border-radius: 50%;
   width: 2.5vw;
@@ -59,6 +59,7 @@ const OpenButton = styled.button`
 // 버튼을 클릭하면 모달창이 나타남
 function GPTOpen({ keyword, setKeyword = (f) => f }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [isHovered, setHovered] = useState(null); // 버튼 애니메이션 관련 변수
 
   function openModal() {
     setModalIsOpen(true);
@@ -70,7 +71,18 @@ function GPTOpen({ keyword, setKeyword = (f) => f }) {
 
   return (
     <div>
-      <OpenButton onClick={openModal}></OpenButton>
+      <OpenButton
+        onClick={openModal}
+        className={`${
+          isHovered === null
+            ? btnStyles.initialState
+            : isHovered
+            ? btnStyles.rotateClockwise
+            : btnStyles.rotateCounterClockwise
+        }`}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      ></OpenButton>
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import styles from '../../../styles/youtubeBar.module.css';
+import btnStyles from '../../../styles/buttonAnimation.module.css';
 import YoutubeVideoList from './YoutubeVideoList';
 import { YOUTUBE_API_KEY } from '../../../config/youtubeKey';
 import { GoChevronRight } from 'react-icons/go';
@@ -10,10 +11,11 @@ import { GoChevronRight } from 'react-icons/go';
 // 사이드바 버튼이 클릭되었을 때 영상이 로딩됩니다.
 const YoutubeBar = ({ keyword }) => {
   const width = 320; // 사이드바 너비
-  const maxResults = 0; // 가져올 영상 수
+  const maxResults = 4; // 가져올 영상 수
   const [isOpen, setOpen] = useState(false);
   const [xPosition, setX] = useState(-width);
   const [videos, setVideos] = useState([]);
+  const [isHovered, setHovered] = useState(null); // 버튼 애니메이션 관련 변수
   const side = useRef();
 
   // button 클릭 시 토글
@@ -55,7 +57,6 @@ const YoutubeBar = ({ keyword }) => {
       setVideos(response.data.items);
     } catch (error) {
       console.error('Fetching videos failed: ', error);
-      // 필요하다면 여기서 추가적인 오류 처리를 할 수 있습니다.
     }
   };
 
@@ -68,12 +69,20 @@ const YoutubeBar = ({ keyword }) => {
         />
       ) : (
         <button
-          className={styles.openButton}
+          className={`${styles.openButton} ${
+            isHovered === null
+              ? btnStyles.initialState
+              : isHovered
+              ? btnStyles.rotateClockwise
+              : btnStyles.rotateCounterClockwise
+          }`}
           style={{ backgroundImage: "url('img/youtube.png')" }}
           onClick={(e) => {
             e.stopPropagation();
             toggleMenu();
           }}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
         ></button>
       )}
       <div

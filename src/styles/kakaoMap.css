@@ -38,6 +38,34 @@
   background: #fff;
 }
 
+#roadviewResize {
+  position: absolute;
+  top: 16vh;
+  width: 5px;
+  height: 84vh;
+  cursor: col-resize;
+  background-color: #050077;
+  z-index: 20;
+}
+
+#roadviewToggleButton {
+  position: absolute;
+  left: 690px;
+  top: 17.2vh;
+  width: 40px;
+  height: 40px;
+  color: #050077;
+  z-index: 15;
+}
+#roadviewDisplay {
+  position: absolute;
+  height: 84vh;
+  top: 16vh;
+  right: 0px;
+  border-left: 2px solid #050077;
+  z-index: 20;
+}
+
 #menu_wrap hr {
   display: block;
   height: 1px;
@@ -168,20 +196,4 @@
 
 #placesList .item .marker_15 {
   background-position: 0 -654px;
-}
-
-#pagination {
-  margin: 10px auto;
-  text-align: center;
-}
-
-#pagination a {
-  display: inline-block;
-  margin-right: 10px;
-}
-
-#pagination .on {
-  font-weight: bold;
-  cursor: default;
-  color: #777;
 }

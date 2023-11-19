@@ -1,0 +1,29 @@
+@keyframes rotateClockwise {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotateCounterClockwise {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+.rotateClockwise {
+  animation: rotateClockwise 0.5s ease;
+}
+
+.rotateCounterClockwise {
+  animation: rotateCounterClockwise 0.5s ease;
+}
+
+.initialState {
+  animation: none;
+}
