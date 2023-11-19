@@ -116,9 +116,6 @@ function Header({ isLoggedIn, setIsLoggedIn }) {
               <Link to={'/login'}>
                 <AwesomeButton type="messenger">로그인</AwesomeButton>
               </Link>
-              <Link to={'/회원가입 경로 넣기'}>
-                <AwesomeButton type="messenger">회원가입</AwesomeButton>
-              </Link>
             </>
           )}
         </NavRight>

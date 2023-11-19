@@ -2,17 +2,14 @@ import {
   Avatar,
   Box,
   Button,
-  Checkbox,
   Container,
   CssBaseline,
-  FormControlLabel,
   Grid,
   TextField,
   Typography,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { KAKAO_AUTH_URL } from '../../OAuth';
-import { Copyright } from '@mui/icons-material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -88,10 +85,8 @@ function SNSLoginPage({ setIsLoggedIn }) {
   };
 
   return (
-    <Container maxWidth="md">
-      <h1 style={{ textAlign: 'center' }}>방구석 여행 SNS</h1>
-
-      <Container component="main" maxWidth="xs">
+    <>
+    <Container sx={{position: 'relative', marginTop:18, zIndex: 50, backgroundColor: 'white', width: '100vw'}}>
         <CssBaseline />
         <Box
           sx={{
@@ -227,12 +222,12 @@ function SNSLoginPage({ setIsLoggedIn }) {
 
           <Box sx={{ display: 'flex', justifyContent: 'center', m: 2 }}>
             <a href={KAKAO_AUTH_URL}>
-              <img src={'/images/kakao_login.png'} alt="카카오 로그인" />
+              <img src={'/img/kakao_login.png'} alt="카카오 로그인" />
             </a>
           </Box>
         </Box>
-      </Container>
     </Container>
+    </>
   );
 }
 
