@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Box, Container, Typography } from '@mui/material';
-import { Height } from '@mui/icons-material';
 
 function SNSLoginLodingPage({ setIsLoggedIn }) {
   const navigate = useNavigate();
@@ -20,7 +19,6 @@ function SNSLoginLodingPage({ setIsLoggedIn }) {
         },
       }).then((res) => {
         // 백엔드에서 토큰 넘겨주는게 성공했다면
-        console.log(res.data);
         // 사용자 정보는 localStorage에 저장
         localStorage.setItem('id', res.data.kakaoMember.id);
         localStorage.setItem('email', res.data.kakaoMember.email);
@@ -36,7 +34,7 @@ function SNSLoginLodingPage({ setIsLoggedIn }) {
 
   return (
     <>
-      <Container maxWidth="md">
+      <Container sx={{position: 'relative', zIndex: 50, marginTop: 18, backgroundColor: 'white', width: '100vw'}}>
         <Box
           sx={{
             display: 'flex',
