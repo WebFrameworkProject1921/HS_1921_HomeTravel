@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Box, Container, Typography } from '@mui/material';
-import { Height } from '@mui/icons-material';
 
 function SNSLoginLodingPage({ setIsLoggedIn }) {
   const navigate = useNavigate();
@@ -20,14 +19,12 @@ function SNSLoginLodingPage({ setIsLoggedIn }) {
         },
       }).then((res) => {
         // 백엔드에서 토큰 넘겨주는게 성공했다면
-        console.log(res.data);
         // 사용자 정보는 localStorage에 저장
         localStorage.setItem('id', res.data.kakaoMember.id);
         localStorage.setItem('email', res.data.kakaoMember.email);
         localStorage.setItem('nickname', res.data.kakaoMember.nickname);
         //로그인이 성공하면 이동할 페이지
         setIsLoggedIn(true);
-        alert('성공적으로 로그인 하였습니다!');
         navigate('/');
       });
     };
@@ -35,8 +32,22 @@ function SNSLoginLodingPage({ setIsLoggedIn }) {
   }, []);
 
   return (
-    <>
-      <Container maxWidth="md">
+    <div
+      style={{
+        position: 'absolute',
+        backgroundColor: 'white',
+        width: '100vw',
+        height: '100vh',
+        zIndex: '100',
+      }}
+    >
+      <Container
+        sx={{
+          position: 'relative',
+          backgroundColor: 'white',
+          width: '100vw',
+        }}
+      >
         <Box
           sx={{
             display: 'flex',
@@ -61,7 +72,7 @@ function SNSLoginLodingPage({ setIsLoggedIn }) {
           </Box>
         </Box>
       </Container>
-    </>
+    </div>
   );
 }
 
