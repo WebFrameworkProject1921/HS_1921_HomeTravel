@@ -34,6 +34,7 @@ const BottomSideBar = ({ keyword }) => {
             danger
             onClick={showDrawer}
             style={{
+              backgroundColor: '#F44336',
               padding: '1px',
               width: '50px',
               height: '6vh',

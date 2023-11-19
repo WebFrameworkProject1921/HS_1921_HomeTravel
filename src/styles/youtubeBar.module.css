@@ -36,8 +36,7 @@
 .openButton {
   position: absolute;
   right: 330px;
-  top: 20vh;
-  transform: translateY(-50%);
+  top: 17vh;
   border: none;
   border-radius: 50%;
   width: 2.5vw;
