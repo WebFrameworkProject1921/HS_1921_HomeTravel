@@ -11,7 +11,7 @@ import { GoChevronRight } from 'react-icons/go';
 // 사이드바 버튼이 클릭되었을 때 영상이 로딩됩니다.
 const YoutubeBar = ({ keyword }) => {
   const width = 320; // 사이드바 너비
-  const maxResults = 4; // 가져올 영상 수
+  const maxResults = 5; // 가져올 영상 수
   const [isOpen, setOpen] = useState(false);
   const [xPosition, setX] = useState(-width);
   const [videos, setVideos] = useState([]);
@@ -76,7 +76,6 @@ const YoutubeBar = ({ keyword }) => {
               ? btnStyles.rotateClockwise
               : btnStyles.rotateCounterClockwise
           }`}
-          style={{ backgroundImage: "url('img/youtube.png')" }}
           onClick={(e) => {
             e.stopPropagation();
             toggleMenu();
