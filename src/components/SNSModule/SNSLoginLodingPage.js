@@ -25,7 +25,6 @@ function SNSLoginLodingPage({ setIsLoggedIn }) {
         localStorage.setItem('nickname', res.data.kakaoMember.nickname);
         //로그인이 성공하면 이동할 페이지
         setIsLoggedIn(true);
-        alert('성공적으로 로그인 하였습니다!');
         navigate('/');
       });
     };
@@ -33,8 +32,22 @@ function SNSLoginLodingPage({ setIsLoggedIn }) {
   }, []);
 
   return (
-    <>
-      <Container sx={{position: 'relative', zIndex: 50, marginTop: 18, backgroundColor: 'white', width: '100vw'}}>
+    <div
+      style={{
+        position: 'absolute',
+        backgroundColor: 'white',
+        width: '100vw',
+        height: '100vh',
+        zIndex: '100',
+      }}
+    >
+      <Container
+        sx={{
+          position: 'relative',
+          backgroundColor: 'white',
+          width: '100vw',
+        }}
+      >
         <Box
           sx={{
             display: 'flex',
@@ -59,7 +72,7 @@ function SNSLoginLodingPage({ setIsLoggedIn }) {
           </Box>
         </Box>
       </Container>
-    </>
+    </div>
   );
 }
 

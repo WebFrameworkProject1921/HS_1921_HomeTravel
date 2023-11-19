@@ -1,7 +1,7 @@
 import { MapMarker, MapTypeId } from 'react-kakao-maps-sdk';
 const { kakao } = window;
 
-function KakaoRoadMap({ center, setCenter = (f) => f, setIsError = (f) => f }) {
+function KakaoRoadMap({ center, setCenter = (f) => f, setIsError = f => f }) {
   return (
     <>
       <MapTypeId type={kakao.maps.MapTypeId.ROADVIEW} />

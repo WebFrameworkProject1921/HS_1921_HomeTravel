@@ -1,21 +1,18 @@
-
 import Container from '@mui/material/Container';
 import SNSCardList from './SNSCardList';
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
 import { Box, Button, Fab } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import SNSCardModal from './SNSCardModal';
-import axios from "axios";
+import axios from 'axios';
 import SNSCardCreateModal from './SNSCardCreateModal';
 
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import "./css/Silder.css"
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import './css/Silder.css';
 import SNSCardUpdateModal from './SNSCardUpdateModal';
-import { Link, Route, Routes, useLocation } from "react-router-dom";
-
-
+import { Link, Route, Routes, useLocation } from 'react-router-dom';
 
 function SNS({ isLoggedIn }) {
   // SNS는 z-index 30 ~ 49 사이로 해야함 css 충돌방지
@@ -23,8 +20,6 @@ function SNS({ isLoggedIn }) {
   const [cards, setCards] = useState([]);
   const location = useLocation();
   const [user, setUser] = useState(null);
-
-
 
   // 모달창의 모드 (CREATE, READ UPDATE, DELETE)
   const [mode, setMode] = useState();
@@ -42,8 +37,7 @@ function SNS({ isLoggedIn }) {
 
   // 모달창 비활성화 함수
   const handleClose = (event, reason) => {
-
-    if (reason && reason == "backdropClick") {
+    if (reason && reason == 'backdropClick') {
       return;
     }
 
@@ -51,20 +45,18 @@ function SNS({ isLoggedIn }) {
   };
 
   // 컴포넌트 첫 렌더링 시 실행
-  useEffect(
-    () => {
-      async function getData() {
-        try {
-          const res = await axios.get("http://localhost:8080/posts");
-          setCards(res.data);
-        } catch (error) {
-          console.error(error);
-          alert('데이더를 가져오는데 오류가 발생했습니다.')
-        }
+  useEffect(() => {
+    async function getData() {
+      try {
+        const res = await axios.get('http://localhost:8080/posts');
+        setCards(res.data);
+      } catch (error) {
+        console.error(error);
+        alert('데이더를 가져오는데 오류가 발생했습니다.');
       }
-      getData();
-    }, []
-  );
+    }
+    getData();
+  }, []);
 
   let modal = null;
 
@@ -98,30 +90,53 @@ function SNS({ isLoggedIn }) {
   }
 
   return (
-
-    <>
-
-      <Container sx={{position: 'relative', zIndex: 50, marginTop: 19, backgroundColor: 'white', width: '100vw'}}>
-        <h1 style={{ textAlign: "center" }}>방구석 국내 여행 SNS</h1>
-        <SNSCardList cards={cards} setMode={(card) => {
-          setMode("READ");
-          setCard(card);
-          handleClickOpen();
-        }} />
+    <div
+      style={{
+        position: 'absolute',
+        backgroundColor: 'white',
+        width: '100vw',
+        height: '84vh',
+        top: '16vh',
+        zIndex: '50',
+      }}
+    >
+      <Container
+        sx={{
+          position: 'relative',
+          zIndex: 50,
+          marginTop: 19,
+          backgroundColor: 'white',
+          width: '100vw',
+        }}
+      >
+        <h1 style={{ textAlign: 'center' }}>방구석 국내 여행 SNS</h1>
+        <SNSCardList
+          cards={cards}
+          setMode={(card) => {
+            setMode('READ');
+            setCard(card);
+            handleClickOpen();
+          }}
+        />
       </Container>
 
       {modal}
 
-      {isLoggedIn &&
-        <Fab color="primary" aria-label="add" onClick={() => {
-          setMode("CREATE");
-          handleClickOpen();
-        }} style={{ position: 'fixed', bottom: '50px', right: '50px' }}>
+      {isLoggedIn && (
+        <Fab
+          color="primary"
+          aria-label="add"
+          onClick={() => {
+            setMode('CREATE');
+            handleClickOpen();
+          }}
+          style={{ position: 'fixed', bottom: '50px', right: '50px' }}
+        >
           <AddIcon />
         </Fab>
-      }
-    </>
-  )
+      )}
+    </div>
+  );
 }
 
 export default SNS;
