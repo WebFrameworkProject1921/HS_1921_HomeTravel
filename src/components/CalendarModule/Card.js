@@ -43,6 +43,17 @@ const Card = ({
       '도보여행',
       '주차장',
       '교육,학문',
+      '산봉우리',
+      '고속,시외버스터미널',
+      '지하철,전철',
+      '기차,철도',
+      '공항',
+      '항구,포구',
+      '영화,영상',
+      '테마파크',
+      '대형마트',
+      '문화유적',
+      '공원',
     ]; //원하는 키워드 들은 이 배열에 저장해준다.
 
     const keyword = tokens.find((token) =>
@@ -66,11 +77,22 @@ const Card = ({
       천문대: 'observatory',
       '절,사찰': 'temple',
       산: 'mountain',
+      산봉우리: 'mountain',
       편의점: 'convenience-store',
       계곡: 'creek',
       도보여행: 'road',
       주차장: 'parking-lot',
       '교육,학문': 'school',
+      '고속,시외버스터미널': 'bus',
+      '지하철,전철': 'subway',
+      '기차,철도': 'subway',
+      공항: 'airport',
+      '항구,포구': 'harbor',
+      '영화,영상': 'cinema',
+      테마파크: 'theme-park',
+      대형마트: 'mart',
+      문화유적: 'relic',
+      공원: 'park',
       '': '', // 카테고리가 비어있는 경우의 기본색상
     };
     const keyword = findKeyword(categoryDetail); //먼저 카테고리 디테일에서 해당하는 키워드가 있는지 확인
