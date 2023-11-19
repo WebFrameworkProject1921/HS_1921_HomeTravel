@@ -304,7 +304,37 @@
 .card.school {
   background-image: url('../../public/img/calender/school.png');
 }
-
+.card.bus {
+  color: black;
+  background-image: url('../../public/img/calender/bus.png');
+}
+.card.subway {
+  background-image: url('../../public/img/calender/subway.png');
+}
+.card.airport {
+  color: black;
+  background-image: url('../../public/img/calender/airport.png');
+}
+.card.harbor {
+  color: black;
+  background-image: url('../../public/img/calender/harbor.png');
+}
+.card.cinema {
+  color: black;
+  background-image: url('../../public/img/calender/cinema.png');
+}
+.card.theme-park {
+  background-image: url('../../public/img/calender/theme-park.png');
+}
+.card.mart {
+  background-image: url('../../public/img/calender/mart.png');
+}
+.card.relic {
+  background-image: url('../../public/img/calender/relic.png');
+}
+.card.park {
+  background-image: url('../../public/img/calender/park.png');
+}
 /*AddCard.js*/
 .add-card-button {
   user-select: none; /*텍스트 드래그 방지*/
