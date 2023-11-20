@@ -81,6 +81,7 @@ function GPTComponent() {
       })
       .catch((response) => {
         console.log(response);
+        alert('Fetching GPT data failed');
       });
   };
 
