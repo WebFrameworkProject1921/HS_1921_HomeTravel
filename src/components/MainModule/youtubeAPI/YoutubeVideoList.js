@@ -38,12 +38,17 @@ const VideoListContainer = styled.div`
   align-items: center;
   height: 100%;
   margin-top: 5px;
+  backgroundcolor: black;
 `;
 
 Modal.setAppElement('#root');
 
 // 사이드바에 표시할 재생 가능한 동영상 표시
-const YoutubeVideoList = ({ videos, toggleMenu = (f) => f }) => {
+const YoutubeVideoList = ({
+  videos,
+  toggleMenu = (f) => f,
+  fetchMoreVideos,
+}) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState(null);
 
@@ -92,6 +97,9 @@ const YoutubeVideoList = ({ videos, toggleMenu = (f) => f }) => {
         modalIsOpen={modalIsOpen}
         closeModal={closeModal}
       />
+      <VideoContainer>
+        <button onClick={fetchMoreVideos}>더보기</button>
+      </VideoContainer>
     </VideoListContainer>
   );
 };

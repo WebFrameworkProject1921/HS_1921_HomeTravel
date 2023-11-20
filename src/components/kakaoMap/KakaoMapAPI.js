@@ -7,7 +7,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 
 import WeatherUI from '../MainModule/weatherAPI/WeatherUI';
-import News from '../MainModule/News';
+import NewsAPI from '../MainModule/NewsAPI';
 import KakaoMarkers from './KakaoMarkers';
 import KakaoRoadMap from './KakaoRoadMap';
 import BottomSideBar from '../MainModule/tourInfoAPI/BottomSideBar';
@@ -371,7 +371,7 @@ export const KakaoMapAPI = ({ keyword, setKeyword = (f) => f }) => {
       {/* 날씨, 뉴스 API 나오는 공간 */}
       <RightBarContainer>
         <WeatherUI keyword={keyword} />
-        <News keyword={keyword} />
+        <NewsAPI keyword={keyword} />
       </RightBarContainer>
       {/* 관광 정보 API */}
       <BottomSideBar keyword={keyword} />
