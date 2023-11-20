@@ -58,7 +58,6 @@ const ColumnModal = ({ isOpen, onClose, column, columnIndex }) => {
       setMarkers([]);
       setStopovers([]);
       setLoading(true);
-      console.log('클린업!!!!');
     };
   }, [isOpen]); //모달창 오픈시 마커 위치 조정, 경로표시를 위한 stopovers 조정
   if (!isOpen) {
