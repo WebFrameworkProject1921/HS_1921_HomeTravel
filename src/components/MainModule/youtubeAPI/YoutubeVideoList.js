@@ -4,6 +4,7 @@ import YouTube from 'react-youtube';
 import Modal from 'react-modal';
 import YoutubeModal from './YoutubeModal';
 import { BiExpandAlt } from 'react-icons/bi';
+import { PiPlusBold } from 'react-icons/pi';
 
 // 모달 열기 버튼 스타일 지정
 const ModalOpenButton = styled.button`
@@ -91,15 +92,34 @@ const YoutubeVideoList = ({
           </ModalOpenButton>
         </VideoContainer>
       ))}
+      <VideoContainer
+        style={{
+          border: '4px dashed #a0a0a0',
+          borderRadius: '10px',
+          marginBottom: '20px',
+        }}
+        onClick={fetchMoreVideos}
+      >
+        <div
+          style={{
+            width: '280px',
+            height: '170px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <PiPlusBold
+            style={{ width: '50px', height: '50px', color: '#404040' }}
+          />
+        </div>
+      </VideoContainer>
       <YoutubeModal
         videos={videos}
         selectedVideo={selectedVideo}
         modalIsOpen={modalIsOpen}
         closeModal={closeModal}
       />
-      <VideoContainer>
-        <button onClick={fetchMoreVideos}>더보기</button>
-      </VideoContainer>
     </VideoListContainer>
   );
 };
