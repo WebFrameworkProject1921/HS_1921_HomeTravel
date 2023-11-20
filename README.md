@@ -1,70 +1,54 @@
-# Getting Started with Create React App
+# 방구석 국내여행 사이트
+이 프로젝트는 여행 계획을 손쉽게 짜고 공유 할 수 있는 웹애플리케션입니다. 백엔드는 Spring Boot를 사용하고 프론트엔드는 React로 개발되었습니다.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 기능
+### Main
+- **검색어를 이용한 지도 및 날씨, 뉴스 정보 조회**
+  메인 화면에서 검색어를 입력하면 지도가 표시되고, 입력한 위치의 날씨 및 뉴스 정보가 우측에 표시됩니다. 이 정보는 카카오맵 API, 날씨 API와 뉴스 API를 이용하여 가져옵니다.
+- **사진 정보 조회**
+  관광 버튼을 클릭하면 검색어와 관련된 이미지를 투어 API를 이용하여 가져와서 표시합니다.
+- **유튜브 동영상 검색**
+  유튜브 버튼을 클릭하면 검색어와 관련된 유튜브 동영상이 나타납니다. 이 기능은 유튜브 API를 활용하여 구현되었습니다.
+- **챗GPT를 이용한 여행 계획 생성**
+  GPT 버튼을 누르면 챗GPT를 활용하여 사용자에게 여행 계획을 자동으로 제안해줍니다. 
+### Calender
+- **여행지를 카드 단위 관리**
+  캘린더 화면에서 여행 일정을 react-beautiful-dnd 라이브러리를 이용해 카드 단위로 드래그 앤 드롭이 가능하게 구현했습니다.
+- **여행지 추가 및 정보 확인**
+  카카오맵 API를 이용해서 여행지를 카드로 추가 할 수 있습니다. 카드를 누르면 모달창이 나오고 여행지 정보를 확인할 수 있습니다.
+- **여행 동선 및 시간확인**
+  계획한 여행지들이 추가되있는 컬럼을 누르면 해당 일자의 동선 및 이동거리, 예상 이동 시간 등을 보여줍니다. 
+### SNS
+  SNS 화면에서는 사용자가 여행에 관한 게시물을 작성하고 공유할 수 있습니다.
+- **게시물 작성**
+  - 게시물에는 사진, 메모, 카카오맵 API를 이용한 위치 정보를 넣어서 작성할 수 있습니다..
+- **게시물 수정/삭제**
+  자신이 작성한 게시물은 언제든지 수정 및 삭제할 수 있습니다.
+- **댓글 기능**
+  다른 사용자의 게시물에 댓글을 작성할 수 있습니다.
 
-## Available Scripts
+## 기술 스택
+- **백엔드**: Spring Boot
+- **프론트엔드**: React
+- **데이터베이스**: Oracle
+- **지도 통합**: 카카오맵 API
+- **날씨 정보**: 날씨 API
+- **뉴스 정보**: 뉴스 API
+- **유튜브 검색**: 유튜브 API
+- **GPT 서비스**: OpenAI GPT (ChatGPT)
+- **이미지 검색**: 투어 API
+- **지도 경로 계산**: 카카오 모빌리티 API
 
-In the project directory, you can run:
+## 백엔드 개발 환경 설정
+1. **IntelliJ 설정**
+   - IntelliJ를 열고 프로젝트를 로드합니다.
+   - File > Project Structure> Project Settings> Project 로 이동합니다.
+   - SDK를 OpenJDK 21을 선택합니다.
+    
+2. **Gradle 설정**
+   - File > Settings > Build, Execution, Deployment > Build Tools > Gradle로 이동합니다.
+   - Gradle JVM에서 OpenJDK 21을 선택합니다.
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+3. **application.properties 설정**
+   - `src/main/resources/application.properties` 파일을 엽니다.
+   - `file.dir` 속성을 SNS 이미지가 저장될 폴더 경로로 설정합니다.
