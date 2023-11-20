@@ -27,10 +27,7 @@
 - **댓글 기능**
   다른 사용자의 게시물에 댓글을 작성할 수 있습니다.
 
-## 기술 스택
-- **백엔드**: Spring Boot
-- **프론트엔드**: React
-- **데이터베이스**: Oracle
+## 사용 API
 - **지도 통합**: 카카오맵 API
 - **날씨 정보**: 날씨 API
 - **뉴스 정보**: 뉴스 API
@@ -52,3 +49,11 @@
 3. **application.properties 설정**
    - `src/main/resources/application.properties` 파일을 엽니다.
    - `file.dir` 속성을 SNS 이미지가 저장될 폴더 경로로 설정합니다.
+
+## 실행방법 
+1. IntelliJ에서 HomeTravel_Back 폴더를 open 한다.
+2. 아래 백앤드 개발 환경 설정이 맞는지 확인한다.
+3. src>main>java>com.example.demo>service 폴더의 DemoApplication을 실행 시킨다.
+4. visual studio code에서 HomeTravel_Front 폴더를 open한다.
+5. npm start를 통해 실행시킨다.
+
