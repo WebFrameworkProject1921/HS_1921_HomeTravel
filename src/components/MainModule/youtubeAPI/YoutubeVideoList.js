@@ -58,8 +58,8 @@ const YoutubeVideoList = ({ videos, toggleMenu = (f) => f }) => {
 
   return (
     <VideoListContainer>
-      {videos.map((video) => (
-        <VideoContainer>
+      {videos.map((video, i) => (
+        <VideoContainer key={i}>
           <YouTube
             key={video.id.videoId}
             videoId={video.id.videoId}
