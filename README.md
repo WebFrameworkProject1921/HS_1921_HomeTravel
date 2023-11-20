@@ -66,7 +66,11 @@
 3. **application.properties 설정**<br>
    - `src/main/resources/application.properties` 파일을 엽니다.
    - `file.dir` 속성을 SNS 이미지가 저장될 폴더 경로로 설정합니다.
-
+   
+   예시
+   > file.dir= C:/Users/cksgu/Desktop/demo/demo/file/
+   
+   경로의 맨 끝에 '/' (슬래시)를 꼭 추가해주세요!
 ## 실행방법 <br>
 1. IntelliJ에서 HomeTravel_Back 폴더를 open 한다.
 2. 위에 백앤드 개발 환경 설정이 맞는지 확인한다.
