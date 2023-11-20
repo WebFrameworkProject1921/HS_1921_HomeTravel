@@ -59,6 +59,7 @@ const AddBoardModal = ({ isOpen, onClose, boards, setBoards, changeBoard }) => {
       });
 
     changeBoard(newBoards.length - 1, newBoards);
+    setVisitPlan({ title: 'New Board', day: 1 });
   };
 
   //-+버튼 누르면 day 변경

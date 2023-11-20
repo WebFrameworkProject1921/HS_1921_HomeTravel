@@ -5,7 +5,7 @@ import axios from 'axios';
 import BoardSelectList from './BoardSelectList';
 import { useNavigate } from 'react-router-dom';
 
-function Calendar({ setIsLoggedIn, setUser }) {
+function Calendar() {
   //캘린더>보드>컬럼>카드 순으로 소유
   const [boards, setBoards] = useState([]);
   const [boardKey, setBoardKey] = useState(0); //현재 화면에 보여지고 있는 보드의 index
