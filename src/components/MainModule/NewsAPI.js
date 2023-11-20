@@ -31,6 +31,7 @@ const News = function ({ keyword }) {
       })
       .catch((error) => {
         console.error('데이터 가져오기 오류(NewsBar):', error);
+        alert('데이터 가져오기 오류(NewsBar)');
       });
   };
 
