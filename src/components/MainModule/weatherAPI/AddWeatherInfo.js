@@ -1,4 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { HashLoader } from 'react-spinners';
+import { BiSolidErrorAlt } from 'react-icons/bi';
+import React, { useState, useEffect } from 'react';
 
 // 이미지 경로명 저장
 const cloudy = 'cloudy';
@@ -66,9 +69,13 @@ function getWeatherType(weatherInfo, index) {
 //그 아래에는 AddWeatherUI로 부터 받은 날씨 예측정보를 토대로 정보를 출력합니다.
 // regionName: 지역명(서울)
 // regionData: 지역 날씨 데이터 객체
-const AddWeatherInfo = function ({ regionName, regionData }) {
+const AddWeatherInfo = function ({
+  regionName,
+  regionData,
+  isLoading,
+  isError,
+}) {
   let weatherInfo = [];
-
   if (
     regionData &&
     regionData.response &&
@@ -99,37 +106,55 @@ const AddWeatherInfo = function ({ regionName, regionData }) {
         className="d-flex flex-column align-items-center justify-content-center m-3 p-3 border rounded shadow bg-white"
         style={{ height: '27vh', transition: '0.4s ease', overflow: 'hidden' }}
       >
-        <div className="border-bottom border-primary mb-3">
-          <h4 className="text-center">{regionName}의 날씨</h4>
-        </div>
+        {isLoading ? (
+          <HashLoader />
+        ) : isError ? (
+          <>
+            <BiSolidErrorAlt
+              style={{
+                width: '50px',
+                height: '50px',
+                color: 'red',
+                marginBottom: '20px',
+              }}
+            />
+            <div>오류가 발생했습니다.</div>
+            <div>나중에 다시 시도해주세요...</div>
+          </>
+        ) : (
+          <>
+            <div className="border-bottom border-primary mb-3">
+              <h4 className="text-center">{regionName}의 날씨</h4>
+            </div>
+            <div className="d-flex justify-content-around w-100">
+              <div className="text-center">
+                <img src={dayImg} className="mb-3 rounded-circle" />
+                <div>
+                  <strong>오전</strong>
+                </div>
+                <div className="text-primary">
+                  <strong>
+                    <span style={{ color: '#007bff' }}>{daySkyStr}</span>{' '}
+                    <span style={{ color: '#dc3545' }}>{dayTmp}º</span>
+                  </strong>
+                </div>
+              </div>
 
-        <div className="d-flex justify-content-around w-100">
-          <div className="text-center">
-            <img src={dayImg} className="mb-3 rounded-circle" />
-            <div>
-              <strong>오전</strong>
+              <div className="text-center">
+                <img src={nightImg} className="mb-3 rounded-circle" />
+                <div>
+                  <strong>오후</strong>
+                </div>
+                <div className="text-primary">
+                  <strong>
+                    <span style={{ color: '#007bff' }}>{nightSkyStr}</span>{' '}
+                    <span style={{ color: '#dc3545' }}>{nightTmp}º</span>
+                  </strong>
+                </div>
+              </div>
             </div>
-            <div className="text-primary">
-              <strong>
-                <span style={{ color: '#007bff' }}>{daySkyStr}</span>{' '}
-                <span style={{ color: '#dc3545' }}>{dayTmp}º</span>
-              </strong>
-            </div>
-          </div>
-
-          <div className="text-center">
-            <img src={nightImg} className="mb-3 rounded-circle" />
-            <div>
-              <strong>오후</strong>
-            </div>
-            <div className="text-primary">
-              <strong>
-                <span style={{ color: '#007bff' }}>{nightSkyStr}</span>{' '}
-                <span style={{ color: '#dc3545' }}>{nightTmp}º</span>
-              </strong>
-            </div>
-          </div>
-        </div>
+          </>
+        )}
       </div>
     );
   }

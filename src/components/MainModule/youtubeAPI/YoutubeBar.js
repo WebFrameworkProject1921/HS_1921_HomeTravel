@@ -11,7 +11,7 @@ import { GoChevronRight } from 'react-icons/go';
 // 사이드바 버튼이 클릭되었을 때 영상이 로딩됩니다.
 const YoutubeBar = ({ keyword }) => {
   const width = 320; // 사이드바 너비
-  const maxResults = 1; // 가져올 영상 수
+  const maxResults = 5; // 가져올 영상 수
   const [isOpen, setOpen] = useState(false);
   const [xPosition, setX] = useState(-width);
   const [videos, setVideos] = useState([]);
@@ -24,6 +24,7 @@ const YoutubeBar = ({ keyword }) => {
     if (xPosition < 0) {
       setX(0);
       setOpen(true);
+      // 검색어 입력을 안하고 영상을 한 번도 불러오지 않은 경우 영상 가져오기
       if (keyword !== '' && videos.length === 0) fetchVideos();
     } else {
       setX(-width);

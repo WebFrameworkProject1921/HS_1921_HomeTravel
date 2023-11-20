@@ -14,7 +14,7 @@ const StyledModal = {
   content: {
     userSelect: 'none',
     width: '900px',
-    height: '600px',
+    height: '650px',
     zIndex: '100',
     position: 'relative',
     top: '50%',
