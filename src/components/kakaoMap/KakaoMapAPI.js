@@ -62,6 +62,7 @@ export const KakaoMapAPI = ({ keyword, setKeyword = (f) => f }) => {
   const [map, setMap] = useState();
   const [inputValue, setInputValue] = useState('');
   const [markerState, setMarkerState] = useState(false); // 마커를 재설정 해야하는지 여부
+  const [location, setLocation] = useState('서울'); //검색어의 지역이름
 
   const [isError, setIsError] = useState(false); // 로드뷰 에러 여부
   const [roadviewToggle, setRoadviewToggle] = useState(false); // 로드뷰 토글
@@ -114,7 +115,10 @@ export const KakaoMapAPI = ({ keyword, setKeyword = (f) => f }) => {
         bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
       }
       setMarkers(markers);
-
+      if (data.length > 0) {
+        var temp = data[0].address_name.split(' ');
+        setLocation(temp[0]);
+      }
       // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
       map.setBounds(bounds);
 
@@ -370,8 +374,8 @@ export const KakaoMapAPI = ({ keyword, setKeyword = (f) => f }) => {
       </LeftBarContainer>
       {/* 날씨, 뉴스 API 나오는 공간 */}
       <RightBarContainer>
-        <WeatherUI keyword={keyword} />
-        <News keyword={keyword} />
+        <WeatherUI keyword={location} />
+        <News keyword={location} />
       </RightBarContainer>
       {/* 관광 정보 API */}
       <BottomSideBar keyword={keyword} />
