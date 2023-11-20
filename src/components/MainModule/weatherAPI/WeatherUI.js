@@ -13,6 +13,9 @@ const WeatherUI = function ({ keyword }) {
   const [x, setX] = useState(126.978652258309); //x
   const [y, setY] = useState(37.566826004661); //y
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+
   var today = new Date(); //오늘 날짜
   var year; // 년도
   var month; // 월
@@ -110,6 +113,9 @@ const WeatherUI = function ({ keyword }) {
 
     let url = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=jSLG7PhndCZp9dBtSCY5UGFS4dLgXrtHWCe4JURn1K7VE7UDXwRv9xyHgez0UaGVP8L9%2Bv22bAKf9Uy%2BPWrFeQ%3D%3D&pageNo=1&numOfRows=160&dataType=JSON&base_date=${newToday}&base_time=0500&nx=${rs.x}&ny=${rs.y}`;
 
+    setIsLoading(true); // 로딩 시작
+    setIsError(false); // 에러 초기화
+
     fetch(url)
       .then((response) => {
         if (!response.ok) {
@@ -119,15 +125,25 @@ const WeatherUI = function ({ keyword }) {
       })
       .then((data) => {
         setRegionData(data);
+        setIsLoading(false); // 로딩 완료
       })
       .catch((error) => {
         console.error('데이터 가져오기 오류(AddWeather):', error);
+        setIsError(true); // 에러 발생
+        setIsLoading(false); // 로딩 완료
       });
   };
 
   return (
     <>
-      <AddWeatherInfo regionName={regionName} regionData={regionData} />
+      <AddWeatherInfo
+        regionName={regionName}
+        regionData={regionData}
+        isLoading={isLoading}
+        isError={isError}
+        setIsLoading={setIsLoading}
+        setIsError={setIsError}
+      />
     </>
   );
 };

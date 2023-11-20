@@ -4,6 +4,7 @@ import YouTube from 'react-youtube';
 import Modal from 'react-modal';
 import YoutubeModal from './YoutubeModal';
 import { BiExpandAlt } from 'react-icons/bi';
+import { PiPlusBold } from 'react-icons/pi';
 
 // 모달 열기 버튼 스타일 지정
 const ModalOpenButton = styled.button`
@@ -38,12 +39,17 @@ const VideoListContainer = styled.div`
   align-items: center;
   height: 100%;
   margin-top: 5px;
+  backgroundcolor: black;
 `;
 
 Modal.setAppElement('#root');
 
 // 사이드바에 표시할 재생 가능한 동영상 표시
-const YoutubeVideoList = ({ videos, toggleMenu = (f) => f }) => {
+const YoutubeVideoList = ({
+  videos,
+  toggleMenu = (f) => f,
+  fetchMoreVideos,
+}) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState(null);
 
@@ -86,6 +92,28 @@ const YoutubeVideoList = ({ videos, toggleMenu = (f) => f }) => {
           </ModalOpenButton>
         </VideoContainer>
       ))}
+      <VideoContainer
+        style={{
+          border: '4px dashed #a0a0a0',
+          borderRadius: '10px',
+          marginBottom: '20px',
+        }}
+        onClick={fetchMoreVideos}
+      >
+        <div
+          style={{
+            width: '280px',
+            height: '170px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <PiPlusBold
+            style={{ width: '50px', height: '50px', color: '#404040' }}
+          />
+        </div>
+      </VideoContainer>
       <YoutubeModal
         videos={videos}
         selectedVideo={selectedVideo}

@@ -15,6 +15,7 @@ const YoutubeBar = ({ keyword }) => {
   const [isOpen, setOpen] = useState(false);
   const [xPosition, setX] = useState(-width);
   const [videos, setVideos] = useState([]);
+  const [nextPageToken, setNextPageToken] = useState(''); // 추가 영상을 불러오기 위한 nextPageToken state
   const [isHovered, setHovered] = useState(null); // 버튼 애니메이션 관련 변수
   const side = useRef();
 
@@ -23,7 +24,8 @@ const YoutubeBar = ({ keyword }) => {
     if (xPosition < 0) {
       setX(0);
       setOpen(true);
-      if (keyword !== '') fetchVideos();
+      // 검색어 입력을 안하고 영상을 한 번도 불러오지 않은 경우 영상 가져오기
+      if (keyword !== '' && videos.length === 0) fetchVideos();
     } else {
       setX(-width);
       setOpen(false);
@@ -55,8 +57,23 @@ const YoutubeBar = ({ keyword }) => {
         }&order=viewCount&type=video&key=${YOUTUBE_API_KEY}`
       );
       setVideos(response.data.items);
+      setNextPageToken(response.data.nextPageToken); // nextPageToken을 저장
     } catch (error) {
       console.error('Fetching videos failed: ', error);
+    }
+  };
+
+  const fetchMoreVideos = async () => {
+    try {
+      const response = await axios.get(
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=${maxResults}&q=${
+          keyword + ' 여행 맛집'
+        }&order=viewCount&type=video&pageToken=${nextPageToken}&key=${YOUTUBE_API_KEY}` // nextPageToken을 요청 URL에 추가합니다.
+      );
+      setVideos([...videos, ...response.data.items]); // 기존의 영상 목록에 새로운 영상을 추가합니다.
+      setNextPageToken(response.data.nextPageToken); // 새로운 nextPageToken을 저장합니다.
+    } catch (error) {
+      console.error('Fetching more videos failed: ', error);
     }
   };
 
@@ -92,7 +109,11 @@ const YoutubeBar = ({ keyword }) => {
           transform: `translatex(${-xPosition}px)`,
         }}
       >
-        <YoutubeVideoList videos={videos} toggleMenu={toggleMenu} />
+        <YoutubeVideoList
+          videos={videos}
+          toggleMenu={toggleMenu}
+          fetchMoreVideos={fetchMoreVideos}
+        />
       </div>
     </div>
   );

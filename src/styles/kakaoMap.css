@@ -57,6 +57,9 @@
   color: #050077;
   z-index: 15;
 }
+#roadviewToggleButton:hover {
+  outline-offset: 4px;
+}
 #roadviewDisplay {
   position: absolute;
   height: 84vh;
