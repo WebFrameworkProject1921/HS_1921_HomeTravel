@@ -10,6 +10,7 @@ const Card = ({
   setColumns,
   boards,
   boardIndex,
+  isDragable,
 }) => {
   const [isModalOpen, setModalOpen] = useState(false); //카드 정보 모달
   const openModal = () => {
@@ -108,6 +109,7 @@ const Card = ({
         key={card.id} //렌더링될 때 각각의 Card를 고유하게 식별하기 위해 필요, 어떤 아이템이 추가, 수정, 삭제 되는지 파악할 때 사용됨
         draggableId={card.id} //드래그 가능한 항목을 식별할 때 사용, key와 draggableId는 서로 다른 기능에서 각각 필요한 식별자 이므로 따로 관리함
         index={index} //배열의 인덱스와 일치, dnd 작업 시 index 값이 변경되며 Card가 재배열 된다.
+        isDragDisabled={!isDragable} //다른 카드가 드래그 중이면 드래그를 막는다.
       >
         {(provided, snapshot) => {
           const categoryStyle = categoryToEnglish(card.place);

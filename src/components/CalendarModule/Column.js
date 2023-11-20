@@ -17,6 +17,7 @@ const Column = ({
   boards,
   boardIndex,
   setBoards,
+  isDragable,
 }) => {
   const [isColumnModalOpen, setColumnModalOpen] = useState(false); // 컬럼 정보 모달
   const [isColumnDeleteModalOpen, setColumnDeleteModalOpen] = useState(false); // 컬럼 삭제 모달
@@ -92,6 +93,7 @@ const Column = ({
                     setColumns={setColumns}
                     boards={boards}
                     boardIndex={boardIndex}
+                    isDragable={isDragable}
                   />
                 </div>
               ))}

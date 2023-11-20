@@ -13,8 +13,10 @@ const onDragEnd = (
   setColumns,
   boardIndex,
   boards,
-  setBoards
+  setBoards,
+  setIsDragable
 ) => {
+  setIsDragable(true); //드래그 가능으로 바꿈
   if (!result.destination) return; //드롭된 위치가 이상하면 종료시킴
   const { source, destination } = result; //소스는 드래그 된 아이템의 위치, destination은 드롭된 아이템의 위치
 
@@ -76,6 +78,7 @@ function Board({
   const initialColumns = boards[boardIndex]?.columnList || {}; //컬럼 없으면 빈 배열
   const [columns, setColumns] = useState(initialColumns);
   const [isEditTitle, setEditTitle] = useState(false);
+  const [isDragable, setIsDragable] = useState(true); //드래그 앤 드롭이 진행중에 다른 카드가 드래그 되면 오류 발생, 아마 카드 던지기 시 알아서 자리 찾아줘서 그런듯? 드래그 시작시 false로 해서 다른 드래그 막고 드래그 끝나면 true로 바꿈
   const inputRef = useRef(null);
 
   //보드 삭제 모달
@@ -146,7 +149,7 @@ function Board({
         //alert('서버 업데이트 성공.');
       })
       .catch((err) => {
-        //alert('서버 업데이트 실패.');
+        alert('서버 업데이트 실패.');
       });
   }, [columns]); // columns가 변경되면 서버에 보드 정보를 업데이트
 
@@ -206,6 +209,7 @@ function Board({
         }}
       >
         <DragDropContext
+          onDragStart={() => setIsDragable(false)}
           onDragEnd={(result) =>
             onDragEnd(
               result,
@@ -213,7 +217,8 @@ function Board({
               setColumns,
               boardIndex,
               boards,
-              setBoards
+              setBoards,
+              setIsDragable
             )
           }
         >
@@ -230,6 +235,7 @@ function Board({
                 boards={boards}
                 boardIndex={boardIndex}
                 setBoards={setBoards}
+                isDragable={isDragable}
               />
             ))}
         </DragDropContext>
