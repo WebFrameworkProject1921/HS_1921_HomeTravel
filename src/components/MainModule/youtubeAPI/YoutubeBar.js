@@ -60,6 +60,7 @@ const YoutubeBar = ({ keyword }) => {
       setNextPageToken(response.data.nextPageToken); // nextPageToken을 저장
     } catch (error) {
       console.error('Fetching videos failed: ', error);
+      alert('Fetching videos failed');
     }
   };
 
@@ -74,6 +75,7 @@ const YoutubeBar = ({ keyword }) => {
       setNextPageToken(response.data.nextPageToken); // 새로운 nextPageToken을 저장합니다.
     } catch (error) {
       console.error('Fetching more videos failed: ', error);
+      alert('Fetching more videos failed');
     }
   };
 
