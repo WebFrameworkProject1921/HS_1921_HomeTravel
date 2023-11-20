@@ -24,8 +24,8 @@ const YoutubeBar = ({ keyword }) => {
     if (xPosition < 0) {
       setX(0);
       setOpen(true);
-      // 검색어 입력을 안하고 영상을 한 번도 불러오지 않은 경우 영상 가져오기
-      if (keyword !== '' && videos.length === 0) fetchVideos();
+      // 새 영상 가져오기
+      if (keyword !== '') fetchVideos();
     } else {
       setX(-width);
       setOpen(false);
@@ -53,7 +53,7 @@ const YoutubeBar = ({ keyword }) => {
     try {
       const response = await axios.get(
         `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=${maxResults}&q=${
-          keyword + ' 여행 맛집'
+          keyword + ' 여행'
         }&order=viewCount&type=video&key=${YOUTUBE_API_KEY}`
       );
       setVideos(response.data.items);
@@ -68,7 +68,7 @@ const YoutubeBar = ({ keyword }) => {
     try {
       const response = await axios.get(
         `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=${maxResults}&q=${
-          keyword + ' 여행 맛집'
+          keyword + ' 여행'
         }&order=viewCount&type=video&pageToken=${nextPageToken}&key=${YOUTUBE_API_KEY}` // nextPageToken을 요청 URL에 추가합니다.
       );
       setVideos([...videos, ...response.data.items]); // 기존의 영상 목록에 새로운 영상을 추가합니다.
