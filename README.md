@@ -52,7 +52,7 @@
 
 ## 실행방법 
 1. IntelliJ에서 HomeTravel_Back 폴더를 open 한다.
-2. 아래 백앤드 개발 환경 설정이 맞는지 확인한다.
+2. 위에 백앤드 개발 환경 설정이 맞는지 확인한다.
 3. src>main>java>com.example.demo>service 폴더의 DemoApplication을 실행 시킨다.
 4. visual studio code에서 HomeTravel_Front 폴더를 open한다.
 5. npm start를 통해 실행시킨다.
