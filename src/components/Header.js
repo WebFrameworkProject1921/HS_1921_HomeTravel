@@ -2,6 +2,7 @@ import { React } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { AwesomeButton } from 'react-awesome-button';
+import { useNavigate } from 'react-router-dom';
 import 'react-awesome-button/dist/styles.css';
 
 // 상단 헤더 컴포넌트
@@ -78,6 +79,7 @@ const NavRight = styled.div`
 `;
 
 function Header({ isLoggedIn, setIsLoggedIn }) {
+  const navigate = useNavigate();
   const handleLogout = () => {
     //로그아웃
     console.log('gg');
@@ -85,6 +87,7 @@ function Header({ isLoggedIn, setIsLoggedIn }) {
     localStorage.removeItem('nickname');
     localStorage.removeItem('email');
     setIsLoggedIn(false);
+    navigate('/');
   };
   return (
     <NavbarContainer>
