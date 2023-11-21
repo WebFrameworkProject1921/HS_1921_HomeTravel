@@ -23,7 +23,7 @@ function App() {
     if (id && email && nickname) {
       setIsLoggedIn(true);
     }
-  });
+  }, []);
 
   return (
     <div>
