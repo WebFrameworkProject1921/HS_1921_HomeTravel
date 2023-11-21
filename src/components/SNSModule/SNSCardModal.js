@@ -34,10 +34,10 @@ function SNSCardModal({ open, onClose, card, setMode, isLoggedIn, handleDelete }
 
 
   useEffect(() => {
-    fetchComments(); // 댓글을 가져옵니다
-  },
-    []
-  );
+    if (open) {
+      fetchComments(); // 다이얼로그가 열릴 때마다 fetchComments를 호출합니다.
+    }
+  }, [open]);
 
 
 
