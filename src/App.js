@@ -44,10 +44,7 @@ function App() {
               }
             />
             <Route path="/SNS" element={<SNS isLoggedIn={isLoggedIn} />} />
-            <Route
-              path="/Planner"
-              element={<Planner isLoggedIn={isLoggedIn} />}
-            />
+            <Route path="/Planner" element={<Planner />} />
           </Routes>
           <Routes>
             <Route
