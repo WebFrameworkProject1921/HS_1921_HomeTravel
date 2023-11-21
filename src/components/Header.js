@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { AwesomeButton } from 'react-awesome-button';
 import { useNavigate } from 'react-router-dom';
 import 'react-awesome-button/dist/styles.css';
+import { useNavigate } from 'react-router-dom';
 
 // 상단 헤더 컴포넌트
 // 회원가입 버튼에 로직 추가 필요함.
@@ -99,7 +100,7 @@ function Header({ isLoggedIn, setIsLoggedIn }) {
           <div style={{ display: 'flex', gap: '10px' }}>
             <StyledLink to={'/'}>Main</StyledLink>
             <StyledLink to={'/SNS'}>SNS</StyledLink>
-            <StyledLink to={'/Calendar'}>Calendar</StyledLink>
+            <StyledLink to={'/Planner'}>Planner</StyledLink>
           </div>
         </NavLeft>
         <NavRight>

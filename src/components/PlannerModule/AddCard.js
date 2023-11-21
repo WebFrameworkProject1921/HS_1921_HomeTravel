@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import AddCardModal from './AddCardModal';
-import '../../styles/Calender.css';
+import '../../styles/Planner.css';
 import { CiCirclePlus } from 'react-icons/ci';
 
 const AddCard = ({ columnId, columns, setColumns, boards }) => {

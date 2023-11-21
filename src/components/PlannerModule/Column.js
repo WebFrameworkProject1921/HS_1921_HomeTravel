@@ -2,7 +2,7 @@ import { Droppable } from 'react-beautiful-dnd';
 import React, { useState } from 'react';
 import Card from './Card';
 import AddCard from './AddCard';
-import '../../styles/Calender.css';
+import '../../styles/Planner.css';
 import ColumnModal from './ColumnModal';
 import ColumnDeleteModal from './ColumnDeleteModal';
 import { BsTrash3Fill } from 'react-icons/bs';
