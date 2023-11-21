@@ -16,21 +16,6 @@ const NavbarContainer = styled.div`
   z-index: 99;
 `;
 
-const StyledNav = styled.nav`
-  width: 100vw;
-  height: 16vh; // 헤더 세로길이
-  background: url(img/headerImage.jpg) no-repeat center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  z-index: 2;
-`;
-
 const StyledLink = styled(Link)`
   color: white;
   padding: 0vh;
