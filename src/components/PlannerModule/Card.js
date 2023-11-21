@@ -135,6 +135,7 @@ const Card = ({
         deleteCard={deleteCard}
         boards={boards}
         boardIndex={boardIndex}
+        columns={columns}
       />
     </>
   );
