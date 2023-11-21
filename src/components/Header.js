@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { AwesomeButton } from 'react-awesome-button';
 import 'react-awesome-button/dist/styles.css';
+import { useNavigate } from 'react-router-dom';
 
 // 상단 헤더 컴포넌트
 // 회원가입 버튼에 로직 추가 필요함.
@@ -78,6 +79,7 @@ const NavRight = styled.div`
 `;
 
 function Header({ isLoggedIn, setIsLoggedIn }) {
+  const navigate = useNavigate();
   const handleLogout = () => {
     //로그아웃
     console.log('gg');
@@ -85,6 +87,7 @@ function Header({ isLoggedIn, setIsLoggedIn }) {
     localStorage.removeItem('nickname');
     localStorage.removeItem('email');
     setIsLoggedIn(false);
+    navigate('/');
   };
   return (
     <NavbarContainer>
@@ -96,7 +99,7 @@ function Header({ isLoggedIn, setIsLoggedIn }) {
           <div style={{ display: 'flex', gap: '10px' }}>
             <StyledLink to={'/'}>Main</StyledLink>
             <StyledLink to={'/SNS'}>SNS</StyledLink>
-            <StyledLink to={'/Calendar'}>Calendar</StyledLink>
+            <StyledLink to={'/Planner'}>Planner</StyledLink>
           </div>
         </NavLeft>
         <NavRight>

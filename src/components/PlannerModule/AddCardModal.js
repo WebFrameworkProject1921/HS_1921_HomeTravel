@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../../styles/Calender.css';
+import '../../styles/Planner.css';
 import Modal from 'react-modal';
 import { ListItem, List, ListItemButton, ListItemText } from '@mui/material';
 
