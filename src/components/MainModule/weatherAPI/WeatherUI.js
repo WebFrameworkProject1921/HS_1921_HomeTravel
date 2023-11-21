@@ -13,8 +13,8 @@ const WeatherUI = function ({ keyword }) {
   const [x, setX] = useState(126.978652258309); //x
   const [y, setY] = useState(37.566826004661); //y
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // 데이터 로딩 중 표시
+  const [isError, setIsError] = useState(false); // fetch 에러 여부 표시
 
   var today = new Date(); //오늘 날짜
   var year; // 년도
@@ -141,8 +141,6 @@ const WeatherUI = function ({ keyword }) {
         regionData={regionData}
         isLoading={isLoading}
         isError={isError}
-        setIsLoading={setIsLoading}
-        setIsError={setIsError}
       />
     </>
   );

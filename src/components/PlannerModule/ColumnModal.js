@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../../styles/Calender.css';
+import '../../styles/Planner.css';
 import Modal from 'react-modal';
 import { Map, MapMarker, Polyline } from 'react-kakao-maps-sdk';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -170,7 +170,7 @@ const ColumnModal = ({ isOpen, onClose, column, columnIndex }) => {
                 width: '100%',
                 height: '100%',
               }}
-              level={10}
+              level={11}
             >
               {markers.map((marker, index) => (
                 <MapMarker

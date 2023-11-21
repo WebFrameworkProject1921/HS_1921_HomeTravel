@@ -99,7 +99,7 @@ function Header({ isLoggedIn, setIsLoggedIn }) {
           <div style={{ display: 'flex', gap: '10px' }}>
             <StyledLink to={'/'}>Main</StyledLink>
             <StyledLink to={'/SNS'}>SNS</StyledLink>
-            <StyledLink to={'/Calendar'}>Calendar</StyledLink>
+            <StyledLink to={'/Planner'}>Planner</StyledLink>
           </div>
         </NavLeft>
         <NavRight>

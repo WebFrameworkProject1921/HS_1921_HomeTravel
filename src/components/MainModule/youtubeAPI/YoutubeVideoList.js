@@ -5,6 +5,8 @@ import Modal from 'react-modal';
 import YoutubeModal from './YoutubeModal';
 import { BiExpandAlt } from 'react-icons/bi';
 import { PiPlusBold } from 'react-icons/pi';
+import { HashLoader } from 'react-spinners';
+import { BiSolidErrorAlt } from 'react-icons/bi';
 
 // 모달 열기 버튼 스타일 지정
 const ModalOpenButton = styled.button`
@@ -49,6 +51,8 @@ const YoutubeVideoList = ({
   videos,
   toggleMenu = (f) => f,
   fetchMoreVideos,
+  isLoading,
+  isError,
 }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState(null);
@@ -63,64 +67,83 @@ const YoutubeVideoList = ({
   }
 
   return (
-    <VideoListContainer>
-      {videos.map((video, i) => (
-        <VideoContainer key={i}>
-          <YouTube
-            key={video.id.videoId}
-            videoId={video.id.videoId}
-            opts={{
-              width: '290px',
-              height: '170px',
-              playerVars: {
-                autoplay: 0,
-                rel: 0,
-                modestbranding: 1,
-              },
-            }}
-            onEnd={(e) => {
-              e.target.stopVideo(0);
+    <>
+      {isLoading ? (
+        <HashLoader />
+      ) : isError ? (
+        <>
+          <BiSolidErrorAlt
+            style={{
+              width: '50px',
+              height: '50px',
+              color: 'red',
+              marginBottom: '20px',
             }}
           />
-          <ModalOpenButton
-            onClick={() => {
-              openModal(video);
-              toggleMenu(); // 유튜브 바 닫기
+          <div>오류가 발생했습니다.</div>
+          <div>나중에 다시 시도해주세요...</div>
+        </>
+      ) : (
+        <VideoListContainer>
+          {videos.map((video, i) => (
+            <VideoContainer key={i}>
+              <YouTube
+                key={video.id.videoId}
+                videoId={video.id.videoId}
+                opts={{
+                  width: '290px',
+                  height: '170px',
+                  playerVars: {
+                    autoplay: 0,
+                    rel: 0,
+                    modestbranding: 1,
+                  },
+                }}
+                onEnd={(e) => {
+                  e.target.stopVideo(0);
+                }}
+              />
+              <ModalOpenButton
+                onClick={() => {
+                  openModal(video);
+                  toggleMenu(); // 유튜브 바 닫기
+                }}
+              >
+                <BiExpandAlt style={{ width: '100%', height: '100%' }} />
+              </ModalOpenButton>
+            </VideoContainer>
+          ))}
+          <VideoContainer
+            style={{
+              border: '4px dashed #a0a0a0',
+              borderRadius: '10px',
+              marginBottom: '20px',
             }}
+            onClick={fetchMoreVideos}
           >
-            <BiExpandAlt style={{ width: '100%', height: '100%' }} />
-          </ModalOpenButton>
-        </VideoContainer>
-      ))}
-      <VideoContainer
-        style={{
-          border: '4px dashed #a0a0a0',
-          borderRadius: '10px',
-          marginBottom: '20px',
-        }}
-        onClick={fetchMoreVideos}
-      >
-        <div
-          style={{
-            width: '280px',
-            height: '170px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <PiPlusBold
-            style={{ width: '50px', height: '50px', color: '#404040' }}
+            <div
+              style={{
+                width: '280px',
+                height: '170px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <PiPlusBold
+                style={{ width: '50px', height: '50px', color: '#404040' }}
+              />
+            </div>
+          </VideoContainer>
+          <YoutubeModal
+            videos={videos}
+            selectedVideo={selectedVideo}
+            modalIsOpen={modalIsOpen}
+            closeModal={closeModal}
           />
-        </div>
-      </VideoContainer>
-      <YoutubeModal
-        videos={videos}
-        selectedVideo={selectedVideo}
-        modalIsOpen={modalIsOpen}
-        closeModal={closeModal}
-      />
-    </VideoListContainer>
+        </VideoListContainer>
+      )}
+    </>
   );
 };
 

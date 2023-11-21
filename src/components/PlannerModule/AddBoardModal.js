@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../styles/Calender.css';
+import '../../styles/Planner.css';
 import Modal from 'react-modal';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';

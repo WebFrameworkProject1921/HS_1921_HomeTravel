@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../../styles/Calender.css';
+import '../../styles/Planner.css';
 import Modal from 'react-modal';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import Textarea from '@mui/joy/Textarea';
