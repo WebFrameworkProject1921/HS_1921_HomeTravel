@@ -141,8 +141,6 @@ const WeatherUI = function ({ keyword }) {
         regionData={regionData}
         isLoading={isLoading}
         isError={isError}
-        setIsLoading={setIsLoading}
-        setIsError={setIsError}
       />
     </>
   );
