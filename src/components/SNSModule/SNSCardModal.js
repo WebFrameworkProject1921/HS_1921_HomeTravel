@@ -1,7 +1,7 @@
-import { Box, DialogTitle, Button, Dialog, DialogActions, DialogContent, Typography, ListItem, TextField, IconButton, List, ListItemButton, ListItemText, Divider, FormControl } from "@mui/material"
+import { Box, DialogTitle, Button, Dialog, DialogActions, DialogContent, Typography, IconButton, Divider, FormControl } from "@mui/material"
 import { Textarea } from "@mui/joy"
 import Slider from "react-slick"
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -21,7 +21,7 @@ function SNSCardModal({ open, onClose, card, setMode, isLoggedIn, handleDelete }
   const [editingCommentId, setEditingCommentId] = useState(null);  // 수정중인 댓글의 ID를 저장하는 상태를 추가합니다
 
 
-  const fetchComments = async () => {
+  const fetchComments = useCallback(async () => {
     try {
       const res = await axios.get(`http://localhost:8080/comments/${card.id}`);
       console.log(res.data);
@@ -30,14 +30,14 @@ function SNSCardModal({ open, onClose, card, setMode, isLoggedIn, handleDelete }
       console.log(error);
       alert('데이더를 가져오는데 오류가 발생했습니다.')
     }
-  };
+  }, [card.id]); // card.id가 변경될 때만 fetchComments 함수를 새로 생성합니다.
 
 
   useEffect(() => {
     if (open) {
       fetchComments(); // 다이얼로그가 열릴 때마다 fetchComments를 호출합니다.
     }
-  }, [open]);
+  }, [open, fetchComments]); // open과 fetchComments가 변경될 때만 useEffect를 실행합니다.
 
 
 
@@ -117,14 +117,14 @@ function SNSCardModal({ open, onClose, card, setMode, isLoggedIn, handleDelete }
         <Slider dots={true} style={{ margin: "0 auto", maxWidth: 600 }} >
           {card.imageFiles.map((image, key) => (
             <div key={key}>
-              <img src={'http://localhost:8080/posts/images/' + image.storeFileName} style={{ margin: "0 auto", maxHeight: 400 }} />
+              <img src={'http://localhost:8080/posts/images/' + image.storeFileName} style={{ margin: "0 auto", maxHeight: 400 }} alt={image.storeFileName} />
             </div>
           ))
           }
 
         </Slider>
 
-        <Divider fullWidth sx={{ m: 6 }} />
+        <Divider sx={{ m: 6 }} />
 
         <Typography sx={{ fontWeight: 'bold' }} gutterBottom>
           메모
@@ -189,15 +189,15 @@ function SNSCardModal({ open, onClose, card, setMode, isLoggedIn, handleDelete }
                   <TableCell align="center">{comment.createDate}</TableCell>
                   <TableCell align="center">
 
-                    {isLoggedIn && localStorage.getItem("id") == comment.authorId && (
+                    {isLoggedIn && Number(localStorage.getItem("id")) === comment.authorId && (
                       <>
                         <Button variant="contained" color="primary" onClick={() => {
-                          if (CommentMode == "READ") {
+                          if (CommentMode === "READ") {
                             setCommentMode("UPDATE");
                             setEditingCommentId(comment.id); // 수정할 댓글의 ID를 설정합니다.
 
                             setComment(comment.comment); // 해당 댓글 내용을 Textarea에 보여줍니다
-                          } else if (CommentMode == "UPDATE") {
+                          } else if (CommentMode === "UPDATE") {
                             setEditingCommentId(null); // 수정할 댓글의 ID를 설정합니다.
                             setCommentMode("READ");
                             setComment(''); // 댓글 상태를 초기화합니다.
@@ -268,7 +268,7 @@ function SNSCardModal({ open, onClose, card, setMode, isLoggedIn, handleDelete }
           onClose();
         }} >닫기</Button>
 
-        {isLoggedIn && localStorage.getItem("id") == card.authorId && (
+        {isLoggedIn && Number(localStorage.getItem("id")) === card.authorId && (
           <>
             <Button variant="contained" onClick={() => { setMode("UPDATE") }}>수정하기</Button>
             <Button variant="contained" color="error" onClick={()=> {

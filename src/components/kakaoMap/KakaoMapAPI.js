@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { FaMapMarkerAlt } from 'react-icons/fa';
+import { BiSolidErrorAlt } from 'react-icons/bi';
 
 import WeatherUI from '../MainModule/weatherAPI/WeatherUI';
 import NewsAPI from '../MainModule/NewsAPI';
@@ -57,6 +58,7 @@ const SearchBox = styled.div`
 `;
 
 export const KakaoMapAPI = ({ keyword, setKeyword = (f) => f }) => {
+  const { kakao } = window;
   const [markers, setMarkers] = useState([]);
   const [info, setInfo] = useState();
   const [map, setMap] = useState();
@@ -66,14 +68,13 @@ export const KakaoMapAPI = ({ keyword, setKeyword = (f) => f }) => {
 
   const [isError, setIsError] = useState(false); // 로드뷰 에러 여부
   const [roadviewToggle, setRoadviewToggle] = useState(false); // 로드뷰 토글
-  const [roadviewWidth, setRoadviewWidth] = useState(50); // 로드뷰 width 조절
+  const [roadviewWidth, setRoadviewWidth] = useState(40); // 로드뷰 width 조절
+  const [isRoadViewInvalid, setIsRoadViewInvalid] = useState(false); // 로드뷰 유효성 검사
   const [center, setCenter] = useState({
     // 맵 클릭시 설정되는 위치
     lat: 37.477082,
     lng: 126.963543,
   });
-
-  const { kakao } = window;
 
   // 키워드 입력시 엔터를 입력했을 때만 setKeyword 호출
   const handleKeyDown = (event) => {
@@ -309,6 +310,7 @@ export const KakaoMapAPI = ({ keyword, setKeyword = (f) => f }) => {
               lng: mouseEvent.latLng.getLng(),
             });
             setIsError(false);
+            setIsRoadViewInvalid(false); // 유효한 위치를 클릭함.
           }}
         >
           {/*검색하면 나오는 마커*/}
@@ -386,20 +388,45 @@ export const KakaoMapAPI = ({ keyword, setKeyword = (f) => f }) => {
         onClick={() => setRoadviewToggle(!roadviewToggle)}
       />
       {/* 로드뷰 토글이 켜지면 로드뷰가 보인다. */}
-      {roadviewToggle && (
-        <>
+      {roadviewToggle ? (
+        !isRoadViewInvalid ? (
+          <>
+            <div
+              id="roadviewResize"
+              onMouseDown={handleResizeMouseDown}
+              style={{ right: `${roadviewWidth}vw` }}
+            ></div>
+            <Roadview // 로드뷰를 표시할 Container
+              id="roadviewDisplay"
+              position={{ ...center, radius: 50 }}
+              style={{ width: isError ? '0' : `${roadviewWidth}vw` }}
+              onErrorGetNearestPanoId={() => {
+                setIsError(true);
+                setIsRoadViewInvalid(true);
+              }}
+            ></Roadview>
+          </>
+        ) : (
           <div
-            id="roadviewResize"
-            onMouseDown={handleResizeMouseDown}
-            style={{ right: `${roadviewWidth}vw` }}
-          ></div>
-          <Roadview // 로드뷰를 표시할 Container
             id="roadviewDisplay"
-            position={{ ...center, radius: 50 }}
-            style={{ width: isError ? '0' : `${roadviewWidth}vw` }}
-            onErrorGetNearestPanoId={() => setIsError(true)}
-          ></Roadview>
-        </>
+            style={{
+              width: `${roadviewWidth}vw`,
+            }}
+          >
+            <BiSolidErrorAlt
+              style={{
+                width: '50px',
+                height: '50px',
+                color: 'red',
+                marginBottom: '20px',
+              }}
+            />
+            <div>유효한 위치가 아닙니다.</div>
+            <div>파란색으로 표시된 도로를 클릭해 보세요!</div>
+          </div>
+        )
+      ) : (
+        <></>
       )}
     </>
   );
