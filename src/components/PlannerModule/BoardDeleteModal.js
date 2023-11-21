@@ -1,4 +1,4 @@
-import '../../styles/Calender.css';
+import '../../styles/Planner.css';
 import Modal from 'react-modal';
 import axios from 'axios';
 import { Button } from '@mui/material';

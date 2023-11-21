@@ -1,7 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { HashLoader } from 'react-spinners';
 import { BiSolidErrorAlt } from 'react-icons/bi';
-import React, { useState, useEffect } from 'react';
 
 // 이미지 경로명 저장
 const cloudy = 'cloudy';

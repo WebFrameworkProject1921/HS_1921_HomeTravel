@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
-import '../../styles/Calender.css';
+import '../../styles/Planner.css';
 import Column from './Column';
 import BoardDeleteModal from './BoardDeleteModal';
 import axios from 'axios';

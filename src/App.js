@@ -4,7 +4,7 @@ import './App.css';
 import Header from './components/Header';
 import Main from './components/MainModule/Main';
 import SNS from './components/SNSModule/SNS';
-import Calendar from './components/CalendarModule/Calendar';
+import Planner from './components/PlannerModule/Planner';
 import YoutubeBar from './components/MainModule/youtubeAPI/YoutubeBar';
 import GPTOpen from './components/MainModule/GPTAPI/GPTOpen';
 import SNSLoginPage from './components/SNSModule/SNSLoginPage';
@@ -44,12 +44,7 @@ function App() {
               }
             />
             <Route path="/SNS" element={<SNS isLoggedIn={isLoggedIn} />} />
-            <Route
-              path="/Calendar"
-              element={
-                <Calendar setIsLoggedIn={setIsLoggedIn} setUser={setUser} />
-              }
-            />
+            <Route path="/Planner" element={<Planner />} />
           </Routes>
           <Routes>
             <Route

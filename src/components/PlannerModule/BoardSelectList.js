@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import '../../styles/Calender.css';
+import '../../styles/Planner.css';
 import AddBoardModal from './AddBoardModal';
 function BoardCard({ item, index, changeBoard }) {
   const truncateText = (text, maxLength) => {

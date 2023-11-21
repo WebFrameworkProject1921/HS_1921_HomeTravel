@@ -1,12 +1,12 @@
 import Board from './Board';
 import React, { useState, useRef, useEffect } from 'react';
-import '../../styles/Calender.css';
+import '../../styles/Planner.css';
 import axios from 'axios';
 import BoardSelectList from './BoardSelectList';
 import { useNavigate } from 'react-router-dom';
 
-function Calendar() {
-  //캘린더>보드>컬럼>카드 순으로 소유
+function Planner() {
+  //플래너>보드>컬럼>카드 순으로 소유
   const [boards, setBoards] = useState([]);
   const [boardKey, setBoardKey] = useState(0); //현재 화면에 보여지고 있는 보드의 index
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ function Calendar() {
     const nickname = localStorage.getItem('nickname');
 
     if (id && email && nickname) {
-      //로컬 스토리지에 is, email, nickname이 있으면 로그인 되어있는 걸로 간주함
+      //로컬 스토리지에 is, email, nickname이 있으면 로그인 되어있는 걸로 간주함, isLoggedIn으로 안하는 이유는 로그인 상태는 새로고침 시 상태가 유지가 안되서 바로 메인으로 이동해 버리는 버그가 있음
       getData();
     } else {
       alert('로그인되어 있지 않습니다.');
@@ -107,4 +107,4 @@ function Calendar() {
   );
 }
 
-export default Calendar;
+export default Planner;
