@@ -17,6 +17,8 @@ const YoutubeBar = ({ keyword }) => {
   const [videos, setVideos] = useState([]);
   const [nextPageToken, setNextPageToken] = useState(''); // 추가 영상을 불러오기 위한 nextPageToken state
   const [isHovered, setHovered] = useState(null); // 버튼 애니메이션 관련 변수
+  const [isLoading, setIsLoading] = useState(false); // 데이터 로딩 중 표시
+  const [isError, setIsError] = useState(false); // fetch 에러 여부 표시
   const side = useRef();
 
   // button 클릭 시 토글
@@ -36,7 +38,7 @@ const YoutubeBar = ({ keyword }) => {
   const handleClose = async (e) => {
     let sideArea = side.current;
     let sideCildren = side.current.contains(e.target);
-    if (isOpen && (!sideArea || !sideCildren)) {
+    if (!isLoading && !isError && isOpen && (!sideArea || !sideCildren)) {
       await setX(-width);
       await setOpen(false);
     }
@@ -49,7 +51,10 @@ const YoutubeBar = ({ keyword }) => {
     };
   });
 
+  // 영상 불러오기 함수
   const fetchVideos = async () => {
+    setIsLoading(true); // 로딩 초기화
+    setIsError(false); // 에러 초기화
     try {
       const response = await axios.get(
         `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=${maxResults}&q=${
@@ -59,11 +64,13 @@ const YoutubeBar = ({ keyword }) => {
       setVideos(response.data.items);
       setNextPageToken(response.data.nextPageToken); // nextPageToken을 저장
     } catch (error) {
+      setIsError(true); // 에러 상태 표시
       console.error('Fetching videos failed: ', error);
-      alert('Fetching videos failed');
     }
+    setIsLoading(false); // 로딩 끝
   };
 
+  // 추가 영상 불러오기 함수
   const fetchMoreVideos = async () => {
     try {
       const response = await axios.get(
@@ -74,13 +81,14 @@ const YoutubeBar = ({ keyword }) => {
       setVideos([...videos, ...response.data.items]); // 기존의 영상 목록에 새로운 영상을 추가합니다.
       setNextPageToken(response.data.nextPageToken); // 새로운 nextPageToken을 저장합니다.
     } catch (error) {
+      setIsError(true); // 에러 상태 표시
       console.error('Fetching more videos failed: ', error);
-      alert('Fetching more videos failed');
     }
   };
 
   return (
     <div className={styles.container}>
+      {/* 사이드바 열림 / 닫힘 버튼 처리*/}
       {isOpen ? (
         <GoChevronRight
           className={styles.closeButton}
@@ -103,18 +111,26 @@ const YoutubeBar = ({ keyword }) => {
           onMouseLeave={() => setHovered(false)}
         ></button>
       )}
+      {/* 사이드바 내부 콘텐츠 */}
       <div
         ref={side}
         className={styles.sidebar}
         style={{
           width: `${width}px`,
           transform: `translatex(${-xPosition}px)`,
+          overflowY: 'hidden',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
         <YoutubeVideoList
           videos={videos}
           toggleMenu={toggleMenu}
           fetchMoreVideos={fetchMoreVideos}
+          isLoading={isLoading}
+          isError={isError}
         />
       </div>
     </div>
