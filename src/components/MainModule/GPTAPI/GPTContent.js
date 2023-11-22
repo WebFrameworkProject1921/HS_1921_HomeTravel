@@ -202,7 +202,7 @@ function GPTComponent() {
               style={{
                 whiteSpace: 'pre-wrap',
                 wordWrap: 'break-word',
-                padding: '5vh',
+                paddingTop: '5vh',
               }}
             >
               {/* 결과 표시*/}
