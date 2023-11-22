@@ -66,7 +66,7 @@ const News = function ({ keyword }) {
   return (
     <div
       className="d-flex flex-column align-items-center justify-content-center m-3 p-3 border rounded shadow bg-white"
-      style={{ height: '52vh', overflowY: 'auto' }}
+      style={{ MaxHeight: '52vh', overflowY: 'auto' }}
     >
       {isLoading ? (
         <HashLoader />
@@ -88,7 +88,6 @@ const News = function ({ keyword }) {
           <div className="border-bottom border-primary mb-3">
             <h4 className="text-center">{regionName}의 News</h4>
           </div>
-
           <div className="d-flex flex-column justify-content-around w-100">
             {data &&
               data.items.map((news, i) => (
