@@ -64,12 +64,14 @@ const News = function ({ keyword }) {
   }, [keyword]);
 
   return (
-    <div
-      className="d-flex flex-column align-items-center justify-content-center m-3 p-3 border rounded shadow bg-white"
-      style={{ MaxHeight: '52vh', overflowY: 'auto' }}
-    >
+    <>
       {isLoading ? (
-        <HashLoader />
+        <div
+          className="d-flex flex-column align-items-center m-3 p-3 justify-content-center border rounded shadow bg-white"
+          style={{ height: '52vh', overflowY: 'auto' }}
+        >
+          <HashLoader />
+        </div>
       ) : isError ? (
         <>
           <BiSolidErrorAlt
@@ -80,11 +82,13 @@ const News = function ({ keyword }) {
               marginBottom: '20px',
             }}
           />
-          <div>오류가 발생했습니다.</div>
           <div>나중에 다시 시도해주세요...</div>
         </>
       ) : (
-        <>
+        <div
+          className="d-flex flex-column align-items-center m-3 p-3 border rounded shadow bg-white"
+          style={{ maxHeight: '52vh', overflowY: 'auto' }}
+        >
           <div className="border-bottom border-primary mb-3">
             <h4 className="text-center">{regionName}의 News</h4>
           </div>
@@ -112,9 +116,9 @@ const News = function ({ keyword }) {
                 </div>
               ))}
           </div>
-        </>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 
