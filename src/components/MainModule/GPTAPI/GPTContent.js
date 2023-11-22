@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { GPT_API_KEY } from '../../../config/GPTkey';
 import { BeatLoader } from 'react-spinners';
+import { BiSolidErrorAlt } from 'react-icons/bi';
 
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -17,7 +18,9 @@ function GPTComponent() {
   const [days, setDays] = useState(''); // 여행 일 수
 
   const [result, setResult] = useState(''); // 결과
-  const [loading, setLoading] = useState(false); // 로딩 여부
+  const [isLoading, setIsLoading] = useState(false); // 데이터 로딩 중 표시
+  const [isError, setIsError] = useState(false); // fetch 에러 여부 표시
+  const [errorMessage, setErrorMessage] = useState(''); // 에러 메시지 표시
 
   // destination 정규 표현식 검사
   const handleDestinationChange = (e) => {
@@ -47,7 +50,8 @@ function GPTComponent() {
 
   const chatGPT = () => {
     setResult();
-    setLoading(true);
+    setIsLoading(true); // 로딩 시작
+    setIsError(false); // 에러 초기화
     const messages = [
       {
         role: 'system',
@@ -74,14 +78,35 @@ function GPTComponent() {
         },
       })
       .then((response) => {
-        setLoading(false);
         setResult(response.data.choices[0].message.content);
         setDestination('');
         setDays('');
+        setIsLoading(false);
       })
-      .catch((response) => {
-        console.log(response);
-        alert('Fetching GPT data failed');
+      .catch((error) => {
+        if (error.response) {
+          // 에러 처리
+          switch (error.response.status) {
+            case 401:
+              setErrorMessage('인증되지 않은 사용자입니다.');
+            case 429:
+              setErrorMessage('사용량을 초과했습니다. ');
+              break;
+            case 500:
+              setErrorMessage('chat GPT 서버 점검 중입니다.');
+              break;
+            default:
+              setErrorMessage('오류가 발생했습니다.');
+          }
+        } else if (error.request) {
+          // 요청이 만들어졌으나 응답을 받지 못함
+          setErrorMessage('응답을 받지 못했습니다.');
+        } else {
+          // 오류를 발생시킨 요청을 설정하는 중에 문제가 발생
+          setErrorMessage('오류가 발생했습니다.');
+        }
+        setIsError(true); // 에러 발생
+        setIsLoading(false); // 로딩 완료
       });
   };
 
@@ -130,7 +155,7 @@ function GPTComponent() {
           alignItems="center"
           justifyContent="center"
         >
-          {loading ? (
+          {isLoading ? (
             <div
               style={{
                 display: 'flex',
@@ -140,7 +165,8 @@ function GPTComponent() {
                 padding: '5vh',
               }}
             >
-              <BeatLoader color={'#123abc'} loading={true} size={15} />
+              {/* 로딩 중 표시*/}
+              <BeatLoader color={'#123abc'} isLoading={true} size={15} />
               <Typography
                 variant="h6"
                 color="black"
@@ -150,6 +176,26 @@ function GPTComponent() {
                 AI가 열심히 답변을 생성하고 있어요!
               </Typography>
             </div>
+          ) : isError ? (
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <BiSolidErrorAlt
+                style={{
+                  width: '50px',
+                  height: '50px',
+                  color: 'red',
+                  marginBottom: '20px',
+                }}
+              />
+              <div>{errorMessage}</div>
+              <div>나중에 다시 시도해주세요...</div>
+            </div>
           ) : result ? (
             <pre
               style={{
@@ -158,6 +204,7 @@ function GPTComponent() {
                 padding: '0 10px',
               }}
             >
+              {/* 결과 표시*/}
               {result}
             </pre>
           ) : (
