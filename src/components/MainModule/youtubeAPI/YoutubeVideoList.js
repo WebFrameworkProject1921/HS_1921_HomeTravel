@@ -53,9 +53,10 @@ const YoutubeVideoList = ({
   fetchMoreVideos,
   isLoading,
   isError,
+  errorMessage,
 }) => {
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [selectedVideo, setSelectedVideo] = useState(null);
+  const [modalIsOpen, setIsOpen] = useState(false); // 모달 열림 여부
+  const [selectedVideo, setSelectedVideo] = useState(null); // 모달 띄우기용 선택된 비디오 저장
 
   function openModal(video) {
     setIsOpen(true);
@@ -80,7 +81,7 @@ const YoutubeVideoList = ({
               marginBottom: '20px',
             }}
           />
-          <div>오류가 발생했습니다.</div>
+          <div>{errorMessage}</div>
           <div>나중에 다시 시도해주세요...</div>
         </>
       ) : (

@@ -89,6 +89,7 @@ function GPTComponent() {
           switch (error.response.status) {
             case 401:
               setErrorMessage('인증되지 않은 사용자입니다.');
+              break;
             case 429:
               setErrorMessage('사용량을 초과했습니다. ');
               break;
@@ -201,7 +202,7 @@ function GPTComponent() {
               style={{
                 whiteSpace: 'pre-wrap',
                 wordWrap: 'break-word',
-                padding: '0 10px',
+                padding: '5vh',
               }}
             >
               {/* 결과 표시*/}

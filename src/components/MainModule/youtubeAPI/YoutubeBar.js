@@ -19,6 +19,7 @@ const YoutubeBar = ({ keyword }) => {
   const [isHovered, setHovered] = useState(null); // 버튼 애니메이션 관련 변수
   const [isLoading, setIsLoading] = useState(false); // 데이터 로딩 중 표시
   const [isError, setIsError] = useState(false); // fetch 에러 여부 표시
+  const [errorMessage, setErrorMessage] = useState(''); // 에러 메시지 표시
   const side = useRef();
 
   // button 클릭 시 토글
@@ -64,8 +65,26 @@ const YoutubeBar = ({ keyword }) => {
       setVideos(response.data.items);
       setNextPageToken(response.data.nextPageToken); // nextPageToken을 저장
     } catch (error) {
+      if (error.response) {
+        // 에러 처리
+        switch (error.response.status) {
+          case 400:
+            setErrorMessage('잘못된 요청입니다.');
+            break;
+          case 403:
+            setErrorMessage('사용량을 초과했습니다. ');
+            break;
+          default:
+            setErrorMessage('오류가 발생했습니다.');
+        }
+      } else if (error.request) {
+        // 요청이 만들어졌으나 응답을 받지 못함
+        setErrorMessage('응답을 받지 못했습니다.');
+      } else {
+        // 오류를 발생시킨 요청을 설정하는 중에 문제가 발생
+        setErrorMessage('오류가 발생했습니다.');
+      }
       setIsError(true); // 에러 상태 표시
-      console.error('Fetching videos failed: ', error);
     }
     setIsLoading(false); // 로딩 끝
   };
@@ -131,6 +150,7 @@ const YoutubeBar = ({ keyword }) => {
           fetchMoreVideos={fetchMoreVideos}
           isLoading={isLoading}
           isError={isError}
+          errorMessage={errorMessage}
         />
       </div>
     </div>
