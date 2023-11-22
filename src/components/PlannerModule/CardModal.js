@@ -6,6 +6,7 @@ import Textarea from '@mui/joy/Textarea';
 import { Button, IconButton } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import axios from 'axios';
+import { safeJSON } from 'openai/core';
 Modal.setAppElement('#root'); //모달이 나타날 때 모달창 아래의 콘텐츠의 포커스 처리를 도와주는 코드
 
 const CardDeleteModal = ({
@@ -57,6 +58,7 @@ const CardModal = ({
   deleteCard,
   boards,
   boardIndex,
+  columns
 }) => {
   const [memo, setMemo] = useState(card.memo || '');
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false); //모달의 상태관리
@@ -91,13 +93,22 @@ const CardModal = ({
   const handleSaveMemo = async () => {
     // 저장 버튼 클릭 시, card.memo 업데이트,
     card.memo = memo;
+
+    const updatedBoard = {
+      ...boards[boardIndex],
+      columnList: Object.values(columns || []).map(column => ({
+        ...column,
+        cards: column.cards.map(c => (c.id === card.id ? card : c)),
+      })),
+    };//메모 정보를 보드에 반영하고 서버에 보낸다. 만약 새로운 보드를 만들지 않고 기존 보드를 보내면 컬럼 추가, 삭제 후에 메모 기능이 작동을 안하기 때문에 아예 새로운 보드를 만들어야함. 
+
     axios
       .put(
-        `http://localhost:8080/boards/${boards[boardIndex].id}`,
-        boards[boardIndex]
+        `http://localhost:8080/boards/${updatedBoard.id}`,
+        updatedBoard
       )
       .catch((err) => {
-        alert('서버 업데이트 실패');
+        alert(safeJSON(boards[boardIndex])+'서버 업데이트 실패');
       });
   };
 
