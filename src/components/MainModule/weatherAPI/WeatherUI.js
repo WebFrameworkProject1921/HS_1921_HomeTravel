@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AddWeatherInfo from './AddWeatherInfo';
+import { HashLoader } from 'react-spinners';
 const { kakao } = window;
 
 //이 컴포넌트는 검색창에 쓰여진 지역을 카카오 api에 보내서 좌표를 응답받고,
@@ -136,12 +137,25 @@ const WeatherUI = function ({ keyword }) {
 
   return (
     <>
-      <AddWeatherInfo
-        regionName={regionName}
-        regionData={regionData}
-        isLoading={isLoading}
-        isError={isError}
-      />
+      {isLoading ? (
+        <div
+          className="d-flex flex-column align-items-center justify-content-center m-3 p-3 border rounded shadow bg-white"
+          style={{
+            height: '27vh',
+            transition: '0.4s ease',
+            overflow: 'hidden',
+          }}
+        >
+          <HashLoader />
+        </div>
+      ) : (
+        <AddWeatherInfo
+          regionName={regionName}
+          regionData={regionData}
+          isLoading={isLoading}
+          isError={isError}
+        />
+      )}
     </>
   );
 };
