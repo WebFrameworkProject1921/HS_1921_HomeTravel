@@ -16,8 +16,7 @@
 .closeButton {
   position: absolute;
   right: 330px;
-  top: 20vh;
-  transform: translateY(-50%);
+  top: 17vh;
   border: 2px solid #202020;
   border-radius: 50%;
   width: 2.5vw;
