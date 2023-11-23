@@ -18,7 +18,7 @@ function GPTComponent() {
   const [days, setDays] = useState(''); // 여행 일 수
 
   const [result, setResult] = useState(''); // 결과
-  const [isLoading, setIsLoading] = useState(false); // 데이터 로딩 중 표시
+  const [isloading, setisloading] = useState(false); // 데이터 로딩 중 표시
   const [isError, setIsError] = useState(false); // fetch 에러 여부 표시
   const [errorMessage, setErrorMessage] = useState(''); // 에러 메시지 표시
 
@@ -50,7 +50,7 @@ function GPTComponent() {
 
   const chatGPT = () => {
     setResult();
-    setIsLoading(true); // 로딩 시작
+    setisloading(true); // 로딩 시작
     setIsError(false); // 에러 초기화
     const messages = [
       {
@@ -81,7 +81,7 @@ function GPTComponent() {
         setResult(response.data.choices[0].message.content);
         setDestination('');
         setDays('');
-        setIsLoading(false);
+        setisloading(false);
       })
       .catch((error) => {
         if (error.response) {
@@ -107,7 +107,7 @@ function GPTComponent() {
           setErrorMessage('오류가 발생했습니다.');
         }
         setIsError(true); // 에러 발생
-        setIsLoading(false); // 로딩 완료
+        setisloading(false); // 로딩 완료
       });
   };
 
@@ -127,7 +127,7 @@ function GPTComponent() {
             label="어디로 갈까요?"
             variant="outlined"
             value={destination}
-            required="true"
+            required={true}
             type="text"
             onChange={handleDestinationChange}
           />
@@ -135,7 +135,7 @@ function GPTComponent() {
             label="며칠간 갈까요?"
             variant="outlined"
             value={days}
-            required="true"
+            required={true}
             type="text"
             onChange={handleDaysChange}
           />
@@ -156,7 +156,7 @@ function GPTComponent() {
           alignItems="center"
           justifyContent="center"
         >
-          {isLoading ? (
+          {isloading ? (
             <div
               style={{
                 display: 'flex',
@@ -167,7 +167,7 @@ function GPTComponent() {
               }}
             >
               {/* 로딩 중 표시*/}
-              <BeatLoader color={'#123abc'} isLoading={true} size={15} />
+              <BeatLoader color={'#123abc'} isloading={true} size={15} />
               <Typography
                 variant="h6"
                 color="black"
