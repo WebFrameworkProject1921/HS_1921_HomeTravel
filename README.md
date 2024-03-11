@@ -84,3 +84,13 @@
 4. visual studio code에서 HomeTravel_Front 폴더를 open한다.
 5. npm install 후 npm start를 입력해서 실행시킨다.
 
+## 메인화면 스크린샷 <br>
+![결과사진1 메인화면](https://github.com/Azsaii/HomeTravel_Front/assets/120641012/aedae6ea-6261-46ef-8c0b-fdd9f8595eae)
+![결과사진6 마커리스트](https://github.com/Azsaii/HomeTravel_Front/assets/120641012/bbdf49fd-0549-450e-9979-3170c90dcffd)
+![결과사진2 유튜브리스트](https://github.com/Azsaii/HomeTravel_Front/assets/120641012/89c975ae-832f-4ab6-9b34-64c8f1378623)
+![결과사진7 유튜브추가버튼](https://github.com/Azsaii/HomeTravel_Front/assets/120641012/be74b8c8-880c-40ce-9443-f34df6d4c8d5)
+![결과사진3 유튜브확대](https://github.com/Azsaii/HomeTravel_Front/assets/120641012/e2af35fc-8600-434e-b10b-7c9dc159485f)
+![결과사진4 gpt](https://github.com/Azsaii/HomeTravel_Front/assets/120641012/601df140-e9a6-4cdb-b990-3632359950e4)
+![결과사진5 로드뷰](https://github.com/Azsaii/HomeTravel_Front/assets/120641012/dc24af06-e9b7-463f-ac28-819f5adbfb23)
+
+
